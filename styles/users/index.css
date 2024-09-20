@@ -1,0 +1,18 @@
+body{
+    display: grid;
+    place-items: center; 
+    height: 80vh; 
+}
+
+.centrar{
+    border: 2px solid black;
+    width: 50%;
+    height: 60%; 
+    background-color: lightgray; 
+    text-align: center; 
+    align-content: center;
+}
+
+h1{
+    margin: 0 0 10 0;
+}
