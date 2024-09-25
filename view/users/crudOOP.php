@@ -12,15 +12,13 @@ $estado= isset($_POST["estado"]) ? $_POST["estado"] : 0;
 $database = new DataBase("users","user");
 $usuarios= new Usuarios($database);
 
-if(!empty($id) && $estado==1){
-    if ($usuarios->estado($id)) {
-        #nada
+if (!empty($id)) { 
+    if ($estado == 1) {
+        $usuarios->estado($id);
     }
-}
-
-if (!empty($id) && !empty($gmail)) {
-    if($usuarios->detele($id))
-        $elimino=1;
+    if (!empty($gmail) && $usuarios->detele($id)) { #la accion de un if se agrego a la condicion del mismo
+        $elimino = 1;
+    }
 }
 $user= $usuarios->read();
 ?>

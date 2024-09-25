@@ -63,7 +63,7 @@ class Usuarios{
         $stmt->bind_param("ss",$user,$pass);
         $stmt -> execute();
         $result = $stmt->get_result();
-        $existe = $result->num_rows > 0;  // Verifica si hay filas coincidentes
+        $existe = $result->num_rows > 0; 
         $stmt->close();
         return $existe; 
     }
