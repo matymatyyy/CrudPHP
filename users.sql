@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-09-2024 a las 21:42:35
+-- Tiempo de generación: 25-09-2024 a las 20:35:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,7 +43,8 @@ INSERT INTO `user` (`id`, `gmail`, `password`, `eliminado`) VALUES
 (25, 'maty@gmail.com', '2', 0),
 (28, 'alumno@hotmail.com', 'reg', 0),
 (29, 'sofia@utn.com', 'chau', 0),
-(30, 'nuevo@gmail.com', 'Contr1s@m', 0);
+(30, 'Diego@gmail.com', 'Contr1s@m', 0),
+(33, 'Jose@gmail.com', 'M1iabuel@', 0);
 
 --
 -- Índices para tablas volcadas
@@ -63,7 +64,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

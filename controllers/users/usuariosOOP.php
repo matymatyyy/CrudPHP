@@ -13,13 +13,9 @@ class Usuarios{
         $stmt = $this->conn -> prepare("INSERT INTO `$this->tabla`( `gmail`, `password`) VALUES (?,?)");
         $stmt->bind_param("ss",$user,$pass);
         $stmt -> execute();
-        if($stmt -> affected_rows > 0){
-            $stmt->close();
-            return true;
-        }else{
-            $stmt->close();
-            return false;
-        }
+        $resultado = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $resultado;
     }
 
     public function read($id=""){
@@ -48,26 +44,18 @@ class Usuarios{
         $stmt = $this->conn->prepare("UPDATE $this->tabla SET gmail = ? , password = ? WHERE id = ? ");
         $stmt->bind_param("ssi", $gmail,$password,$id);
         $stmt->execute();
-        if ($stmt -> affected_rows > 0) {#si los datos que cambia son iguales no los detecta
-            $stmt->close();
-            return true;
-        } else {
-            $stmt->close();
-            return false;
-        }
+        $resultado = $stmt->affected_rows > 0; #si los datos que cambia son iguales no los detecta
+        $stmt->close();
+        return $resultado;
     }
 
     public function detele($id) {
         $stmt = $this->conn->prepare("DELETE FROM $this->tabla WHERE id = ?"); #liminado fisico
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        if ($stmt->affected_rows > 0) {
-            $stmt->close();
-            return true;
-        } else {
-            $stmt->close();
-            return false;
-        }
+        $resultado = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $resultado;
     }
 
     public function existe($user,$pass){
@@ -75,12 +63,9 @@ class Usuarios{
         $stmt->bind_param("ss",$user,$pass);
         $stmt -> execute();
         $result = $stmt->get_result();
+        $existe = $result->num_rows > 0;  // Verifica si hay filas coincidentes
         $stmt->close();
-        if ($result->num_rows > 0) {
-            return true;
-        }else{
-            return false;
-        }
+        return $existe; 
     }
 
     public function estado($id){
@@ -89,12 +74,8 @@ class Usuarios{
         $stmt = $this->conn->prepare("UPDATE $this->tabla SET eliminado=$estado WHERE id = ? "); #eliminacion logica
         $stmt->bind_param("i",$id);
         $stmt->execute();
-        if ($stmt -> affected_rows > 0) {
-            $stmt->close();
-            return true;
-        } else {
-            $stmt->close();
-            return false;
-        }
+        $resultado = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $resultado;
     }
 }
