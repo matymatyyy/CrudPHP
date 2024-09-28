@@ -1,0 +1,8 @@
+body{
+    background-color: rgb(175, 170, 170);
+}
+@media (min-width: 800px) {
+    .botones{
+        padding-top: 10%;
+    }
+}

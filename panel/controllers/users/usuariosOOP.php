@@ -1,5 +1,4 @@
 <?php
-include_once("../../include/connOOP.php"); #incluyo el objeto de la base de datos
 class Usuarios{
     private $conn;
     public $tabla;
