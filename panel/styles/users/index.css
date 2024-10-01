@@ -4,6 +4,10 @@ body{
     height: 80vh; 
 }
 
+.colorNav{
+    background-color: #4f5257;
+}
+
 .centrar{
     border: 2px solid black;
     width: 50%;

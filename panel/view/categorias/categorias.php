@@ -1,27 +1,23 @@
 <?php
 include_once("../../include/verificarSesion.php");
-include_once("../../controllers/users/usuariosOOP.php");
+include_once("../../controllers/categorias/categoriasOOP.php");
 include_once("../../include/connOOP.php");
 
 $id = isset($_POST["id"]) ? $_POST["id"] : 0;
 $error = isset($_GET["error"]) ? $_GET["error"] : 0;
 $elimino =0;
-$gmail = isset($_GET["gmail"]) ? $_GET["gmail"] : "";
+$nombre = isset($_GET["nombre"]) ? $_GET["nombre"] : "";
 $actualizo=isset($_GET["actualizo"]) ? $_GET["actualizo"] : 0;
-$estado= isset($_POST["estado"]) ? $_POST["estado"] : 0;
+$registro=isset($_GET["registro"])?$_GET["registro"]:0;
 
-$database = new DataBase("users","user");
-$usuarios= new Usuarios($database);
+$database = new DataBase("users","categorias");
+$categorias= new Categorias($database);
 
-if (!empty($id)) { 
-    if ($estado == 1) {
-        $usuarios->estado($id);
-    }
-    if (!empty($gmail) && $usuarios->detele($id)) { #la accion de un if se agrego a la condicion del mismo
-        $elimino = 1;
-    }
+if (!empty($nombre) && !empty($id) && $categorias->detele($id)) { #la accion de un if se agrego a la condicion del mismo
+    $elimino = 1;
 }
-$user= $usuarios->read();
+
+$categoria= $categorias->read();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +33,7 @@ $user= $usuarios->read();
     <br>
         <div class="row">
             <?php include_once("../shared/botones.html");
+            include_once("categoriasTable.php");
             ?>
     </div>    
 </body>
