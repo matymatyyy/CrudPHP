@@ -18,7 +18,7 @@ class Entradas{
             $stmt->close();
             return $entrada;
         }else{
-            $stmt = $this->conn->prepare("SELECT * FROM $this->tabla ");
+            $stmt = $this->conn->prepare("SELECT N.id,N.titulo, N.descripcion, N.fecha, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria=C.id); ");
             $stmt->execute();
             $result = $stmt->get_result();
             $entradas = [];
@@ -31,8 +31,8 @@ class Entradas{
     }
 
     public function create($titulo,$descripcion,$texto,$id_cateogira,$id_user,$imagen){
-        $stmt = $this->conn -> prepare("INSERT INTO `$this->tabla`(`titulo`, `descripcion`, `texto`, `id_categoria`, `id_user`, `imagen`) VALUES ('?','?','?','?','?','?')");
-        $stmt->bind_param("ssssss",$titulo,$descripcion,$texto,$id_cateogira,$id_user,$imagen);
+        $stmt = $this->conn -> prepare("INSERT INTO `$this->tabla`(`titulo`, `descripcion`, `texto`, `id_categoria`, `id_user`, `imagen`) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("sssiis",$titulo,$descripcion,$texto,$id_cateogira,$id_user,$imagen);
         $stmt -> execute();
         $resultado = $stmt->affected_rows > 0;
         $stmt->close();

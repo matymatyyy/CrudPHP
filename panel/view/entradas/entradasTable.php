@@ -23,7 +23,9 @@
                 <thead>
                     <tr>
                         <th>Titulo</th>
-                        <th>ID</th>
+                        <th>descripcion</th>
+                        <th>fecha</th>
+                        <th>Categoria</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -32,7 +34,9 @@
                 <?php foreach ($entrada as $entra) { ?>
                     <tr>
                         <td><?php echo $entra->titulo; ?></td>
-                        <td><?php echo $entra->id; ?> </td>
+                        <td><?php echo $entra-> descripcion ?></td>
+                        <td><?php echo $entra-> fecha ?></td>
+                        <td><?php echo $entra-> nombre ?></td>
                         
                         <td><form align="center" action=<?php echo "update.php?actualizar=1" ?> method="POST"><input value="Actualizar" type="submit" class="btn btn-secondary"><input type="hidden" name="id" value=<?php echo $entra->id ?>></form></td>
                         
