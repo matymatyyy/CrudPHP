@@ -29,12 +29,12 @@ if ($registro==1) {
 }
 
 if (!empty($id)) {
-    if (!empty($nombre)) {
-        $categorias->update($nombre,$id);
-        header("Location:/patronDiseño/panel/view/categorias/categorias.php?actualizo=1&nombre=$nombre");
+    $entra=$entradas->read($id);
+    if ($actualizo==1 && !empty($titulo) && !empty($descripcion) && !empty($texto)) {
+        $entradas->update($titulo,$descripcion,$texto,$categoria,$users,ProcesarImag($entra->imagen),$id);
+        header("Location:/patronDiseño/panel/view/entradas/entradas.php?actualizo=1&titulo=$titulo");
         exit();
     }
-    $entra=$entradas->read($id);
 }
 $cat=$categorias->read();
 ?>
@@ -44,32 +44,56 @@ $cat=$categorias->read();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
 </head>
 <body>
-<div class="centrar">
-        <?php echo empty($id) ?  "<h1>Agregar</h1>" :  "<h1>actualizar</h1>"; ?>
-        <form class="formulario" method="POST" action=<?php echo empty($id) ?  "update.php?registro=1" :  "update.php?actualizar=1"; ?> enctype="multipart/form-data">
-        <p class="error"></p>
-            <input type="text" name="titulo" <?php echo empty($id) ?  "placeholder='titulo'" :  "value=$entra->titulo"; ?>>
-            <input type="text" name="descripcion" <?php echo empty($id) ?  "placeholder='descripcion'" :  "value=$entra->descripcion"; ?>>
-            <textarea type="text" name="texto" <?php echo empty($id) ?  "placeholder='desarrollo'" :  "value=$entra->texto"; ?>> </textarea>
-            <label for="category">Elige una categoría:</label>
-                <select id="category" name="categoria">
-                <?php foreach($cat as $cate) { ?>
-                    <option value=<?php echo $cate->id ?>><?php echo $cate->nombre ?></option>
-                <?php } ?>
-            </select>
-            <input type="hidden" name="users" value=<?php echo $_SESSION["gmail"] ?> >
-            <label for="file">Sube una imagen:</label>
-            <input type="file" name="file" id="file" accept="image/*">
-            <?php if (!empty($id)) { ?>
-                <input type="hidden" name="id" value="<?php echo $id ?>">
-            <?php } ?>
-            <input type="submit">
-        </form><br>
-        <form action="/patronDiseño/panel/view/entradas/entradas.php">
-        <input type="submit" value="volver">
-    </form>
+<div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1><?php echo empty($id) ? "Agregar" : "Actualizar"; ?></h1>
+            </div>
+            <div class="card-body">
+                <form class="form" method="POST" action="<?php echo empty($id) ? "update.php?registro=1" : "update.php?actualizar=1"; ?>" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" class="form-control" name="titulo" id="titulo" 
+                               <?php echo empty($id) ? "placeholder='Título'" : "value='" . htmlspecialchars($entra->titulo, ENT_QUOTES) . "'"; ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <input type="text" class="form-control" name="descripcion" id="descripcion" 
+                               <?php echo empty($id) ? "placeholder='Descripción'" : "value='" . htmlspecialchars($entra->descripcion, ENT_QUOTES) . "'"; ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="texto">Texto</label>
+                        <textarea class="form-control" rows="5" name="texto" id="texto"><?php echo empty($id) ? "Desarrollo" : htmlspecialchars($entra->texto, ENT_QUOTES); ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Elige una categoría:</label>
+                        <select class="form-control" id="category" name="categoria">
+                            <?php foreach ($cat as $cate) { ?>
+                                <option value="<?php echo $cate->id ?>"><?php echo htmlspecialchars($cate->nombre, ENT_QUOTES); ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Sube una imagen:</label>
+                        <input type="file" class="form-control-file" name="file" id="file" accept="image/*">
+                    </div>
+                    <?php if (!empty($id)) { ?>
+                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                    <?php } ?>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+                <br>
+                <form action="/patronDiseño/panel/view/entradas/entradas.php">
+                    <button type="submit" class="btn btn-secondary">Volver</button>
+                </form>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>

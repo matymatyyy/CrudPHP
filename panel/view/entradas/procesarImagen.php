@@ -1,25 +1,25 @@
 <?php
-function ProcesarImag() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $target_dir = "/patronDiseño/panel/uploads/noticias/";
-        $target_file = $target_dir . basename($_FILES["file"]["name"]);
-        
-        // Verificar si el archivo fue subido sin errores
-        if ($_FILES["file"]["error"] !== UPLOAD_ERR_OK) {
-            return "Error al subir el archivo: " . $_FILES["file"]["error"];
+function ProcesarImag($text = "") {
+    if (isset($_FILES["file"]) && empty($text)) {
+        $file = $_FILES["file"]; 
+        $fileName = date('Y-m-d_H-i-s') . "_" . basename($file["name"]); # agregamos la fecha al nombre para que no tengamos duplicados
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; # verificamos el tipo del archivo y su extension
+
+        $uploadDir = "../../uploads/noticias";
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777); 
         }
-        
-        // Verificar si la carpeta de destino es escribible
-        if (!is_writable($target_dir)) {
-            return "Error: la carpeta de destino no tiene permisos de escritura.";
+
+        if (!in_array($file["type"], $allowedTypes)) {
+            return "Tipo de archivo no permitido";
         }
-        
-        // Mover el archivo subido
-        if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-            return "El archivo se ha movido correctamente a: " . $target_file;
+
+        if (move_uploaded_file($file["tmp_name"], "$uploadDir/$fileName")) {
+            return $fileName; 
         } else {
-            return "Error al mover el archivo. Verifique la ruta de destino: " . $target_file;
+            return "error"; 
         }
+    } else {
+        return $text; # si no hay imagen devolvemos el mismo nombre de la que ya tenia antes
     }
-    return "No se envió ningún archivo.";
 }

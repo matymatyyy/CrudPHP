@@ -59,7 +59,7 @@ $categoris= $categorias->read();
             <?php foreach ($noticas as $entra) { ?>
                 <div class="col-md-4">
                 <div class="card">
-                    <img src="<?php echo $entra->imagen ?>" class="card-img-top" alt="Noticia">
+                    <img  src="<?php echo "/patronDiseño/panel/uploads/noticias/".$entra->imagen ?>" class="card-img-top" alt="Noticia">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $entra->titulo ?></h5>
                         <h6 class="card-text"><?php echo $entra->nombre ?></h6>

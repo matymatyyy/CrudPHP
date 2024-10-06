@@ -18,7 +18,7 @@ class Entradas{
             $stmt->close();
             return $entrada;
         }else{
-            $stmt = $this->conn->prepare("SELECT N.id,N.titulo, N.descripcion, N.fecha, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria=C.id); ");
+            $stmt = $this->conn->prepare("SELECT N.id,N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria=C.id); ");
             $stmt->execute();
             $result = $stmt->get_result();
             $entradas = [];
@@ -39,9 +39,9 @@ class Entradas{
         return $resultado;
     }
 
-    public function update($titulo,$descripcion,$texto,$id_cateogira,$id_user,$imagen,$id){    #actualizar este funcion
-        $stmt = $this->conn->prepare("UPDATE `$this->tabla` SET `titulo`=?,`descripcion`=?,`texto`=?,`id_categoria`=?,`id_user`=?,`imagen`=?,`fecha`=? WHERE id=? ;");
-        $stmt->bind_param("ssssssi",$titulo,$descripcion,$texto,$id_cateogira,$id_user,$imagen,$id);
+    public function update($titulo,$descripcion,$texto,$id_categoira,$id_user,$imagen,$id){    #actualizar este funcion
+        $stmt = $this->conn->prepare("UPDATE `$this->tabla` SET `titulo`=?,`descripcion`=?,`texto`=?,`id_categoria`=?,`id_user`=?,`imagen`=? WHERE id=? ;");
+        $stmt->bind_param("sssiisi",$titulo,$descripcion,$texto,$id_categoira,$id_user,$imagen,$id);
         $stmt->execute();
         $resultado = $stmt->affected_rows > 0; #si los datos que cambia son iguales no los detecta
         $stmt->close();
