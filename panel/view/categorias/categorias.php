@@ -35,6 +35,7 @@ $categoria= $categorias->read();
             <?php include_once("../shared/botones.html");
             include_once("categoriasTable.php");
             ?>
-    </div>    
+    </div>   
+<script src="../../scrips/users/limitText.js"></script>
 </body>
 </html>

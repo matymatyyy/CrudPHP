@@ -8,9 +8,9 @@ class Usuarios{
         $this->tabla= $db->table;
     }
 
-    public function create($user,$pass){
-        $stmt = $this->conn -> prepare("INSERT INTO `$this->tabla`( `gmail`, `password`) VALUES (?,?)");
-        $stmt->bind_param("ss",$user,$pass);
+    public function create($user,$name,$pass){
+        $stmt = $this->conn -> prepare("INSERT INTO `$this->tabla`( `gmail`,`name`,`password`) VALUES (?,?,?)");
+        $stmt->bind_param("sss",$user,$name, $pass);
         $stmt -> execute();
         $resultado = $stmt->affected_rows > 0;
         $stmt->close();
@@ -39,9 +39,9 @@ class Usuarios{
         }
     }
 
-    public function update($gmail,$password,$id){    
-        $stmt = $this->conn->prepare("UPDATE $this->tabla SET gmail = ? , password = ? WHERE id = ? ");
-        $stmt->bind_param("ssi", $gmail,$password,$id);
+    public function update($gmail,$name,$password,$id){    
+        $stmt = $this->conn->prepare("UPDATE $this->tabla SET gmail = ? , name = ? , password = ? WHERE id = ? ");
+        $stmt->bind_param("sssi", $gmail,$name,$password,$id);
         $stmt->execute();
         $resultado = $stmt->affected_rows > 0; #si los datos que cambia son iguales no los detecta
         $stmt->close();

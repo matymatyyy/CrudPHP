@@ -37,5 +37,6 @@ $entrada= $entradas->read();
             include_once("entradasTable.php");
             ?>
     </div>    
+    <script src="../../scrips/users/limitText.js"></script>
 </body>
 </html>

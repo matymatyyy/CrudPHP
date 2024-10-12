@@ -43,5 +43,6 @@ $user= $usuarios->read();
             include_once("users/users.php");
             ?>
     </div> 
+    <script src="../scrips/users/limitText.js"></script>
 </body>
 </html>

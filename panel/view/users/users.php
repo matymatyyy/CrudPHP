@@ -22,10 +22,10 @@
                     <tr>
                         <th>Email</th>
                         <th>ID</th>
+                        <th>Users</th>
                         <th>Estado</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +34,7 @@
                     <tr>
                         <td><?php echo $usuario->gmail; ?></td>
                         <td><?php echo $usuario->id; ?> </td>
+                        <td class="limit-text"><?php echo $usuario->name ?></td>
 
                     <td>
                             <form method="POST" action="crudOOP.php?" align="center">

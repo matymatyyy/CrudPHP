@@ -50,7 +50,7 @@ if (!empty($id)) {
                     <div class="form-group">
                         <label for="nombre">Nombre de la Categoría</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" 
-                               <?php echo empty($id) ? "placeholder='Tecnología'" : "value='" . htmlspecialchars($cat->nombre, ENT_QUOTES) . "'"; ?>>
+                               <?php echo empty($id) ? "placeholder='Tecnología'" : "value='" . htmlspecialchars($cat->nombre, ENT_QUOTES) . "'"; ?> required>
                     </div>
                     
                     <?php if (!empty($id)) { ?>

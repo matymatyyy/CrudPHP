@@ -1,5 +1,6 @@
 <?php
 $gmail = isset($_POST["gmail"]) ? $_POST["gmail"] : "";
+$name=isset($_POST["name"]) ? $_POST["name"] : "";
 $pass = isset($_POST["password"]) ? $_POST["password"] : "";
 $registro = isset($_GET["registro"]) ? $_GET["registro"] : 0;
 $flag = 0;
@@ -12,7 +13,7 @@ $usuario = new Usuarios($database);
 
 if (!empty($gmail) && !empty($pass)) {
     if ($registro == 1) {
-        if ($usuario->create($gmail, $pass)) {
+        if ($usuario->create($gmail,$name, $pass)) {
             $flag=1;
             header("Location: ");
         } else {
@@ -47,6 +48,10 @@ if (!empty($gmail) && !empty($pass)) {
                 <div class="form-group">
                     <label for="gmail">Correo Electrónico</label>
                     <input type="text" class="form-control" name="gmail" id="gmail" placeholder="ejemplo@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="text">Usuario</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="usuario">
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña</label>

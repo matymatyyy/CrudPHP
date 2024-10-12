@@ -59,16 +59,16 @@ $cat=$categorias->read();
                     <div class="form-group">
                         <label for="titulo">Título</label>
                         <input type="text" class="form-control" name="titulo" id="titulo" 
-                               <?php echo empty($id) ? "placeholder='Título'" : "value='" . htmlspecialchars($entra->titulo, ENT_QUOTES) . "'"; ?>>
+                               <?php echo empty($id) ? "placeholder='Título'" : "value='" . htmlspecialchars($entra->titulo, ENT_QUOTES) . "'"; ?> required>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción</label>
                         <input type="text" class="form-control" name="descripcion" id="descripcion" 
-                               <?php echo empty($id) ? "placeholder='Descripción'" : "value='" . htmlspecialchars($entra->descripcion, ENT_QUOTES) . "'"; ?>>
+                               <?php echo empty($id) ? "placeholder='Descripción'" : "value='" . htmlspecialchars($entra->descripcion, ENT_QUOTES) . "'"; ?> required>
                     </div>
                     <div class="form-group">
                         <label for="texto">Texto</label>
-                        <textarea class="form-control" rows="5" name="texto" id="texto"><?php echo empty($id) ? "Desarrollo" : htmlspecialchars($entra->texto, ENT_QUOTES); ?></textarea>
+                        <textarea required class="form-control" rows="5" name="texto" id="texto"><?php echo empty($id) ? "Desarrollo" : htmlspecialchars($entra->texto, ENT_QUOTES); ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="category">Elige una categoría:</label>
@@ -80,7 +80,7 @@ $cat=$categorias->read();
                     </div>
                     <div class="form-group">
                         <label for="file">Sube una imagen:</label>
-                        <input type="file" class="form-control-file" name="file" id="file" accept="image/*">
+                        <input required type="file" class="form-control-file" name="file" id="file" accept="image/*">
                     </div>
                     <?php if (!empty($id)) { ?>
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
