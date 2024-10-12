@@ -19,8 +19,8 @@ if (!empty($id)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $noticia ? htmlspecialchars($noticia->titulo) : 'Detalle de Noticia'; ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="/patronDiseño/recursos/styles/index.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
@@ -38,7 +38,7 @@ if (!empty($id)) {
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                 <?php
-                    setlocale(LC_TIME, 'es_ES.UTF-8');
+                    setlocale(LC_TIME, 'spanish');
                     echo strftime("%e de %B de %Y");
                 ?>
                 </li>
@@ -54,20 +54,26 @@ if (!empty($id)) {
 </nav>
 <hr>
 
-<div class="container my-5">
+
     <?php if ($noticia) { ?>
-        <div class="card">
+            <div class="container my-5">
+            <h1 class="display-1 text-center fw-bold"><?php echo htmlspecialchars($noticia->titulo); ?></h1><br>
+            <h2 class="card-text "><?php echo htmlspecialchars($noticia->descripcion); ?></h2><br>
+            <div class="card">
             <img src="<?php echo "/patronDiseño/panel/uploads/noticias/" . htmlspecialchars($noticia->imagen); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($noticia->titulo); ?>">
             <div class="card-body">
-                <h5 class="card-title"><?php echo htmlspecialchars($noticia->titulo); ?></h5>
-                <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($noticia->fecha); ?></h6>
-                <p class="card-text"><?php echo htmlspecialchars($noticia->descripcion); ?></p>
+            <h4 class="fw-bold"><?php echo htmlspecialchars($noticia->nombre); ?></h4><br>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <?php 
+                    $fecha = new DateTime($noticia->fecha);
+                    echo htmlspecialchars(strftime("%e de %B de %Y", $fecha->getTimestamp()));                
+                    ?></h6><br>
                 <p class="card-text"><?php echo htmlspecialchars($noticia->texto);?></p>
             </div>
-        </div>
+        
     <?php } else { ?>
         <div class="alert alert-warning" role="alert">
-            Noticia no encontrada. Por favor, verifique el ID de la noticia.
+            Noticia no encontrada. Por favor.
         </div>
     <?php } ?>
     <a href="index.php" class="btn btn-secondary mt-3">Volver a la lista de noticias</a>

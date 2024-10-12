@@ -8,10 +8,15 @@ $entradas= new Entradas($database);
 $database2 = new DataBase("users","categorias");
 $categorias= new Categorias($database2);
 
-$noticas = $entradas->read();
 $categoris= $categorias->read();
+$filtro=isset($_GET["filtro"])? $_GET["filtro"]:"";
 session_start();
 
+if (!empty($filtro)) {
+    $noticas = $entradas->filtroAjax($filtro,0,6);
+}else{
+    $noticas = $entradas->readAjax(0,6);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +24,8 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noticas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="/patronDiseño/recursos/styles/index.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
@@ -38,7 +43,7 @@ session_start();
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                     <?php
-                        setlocale(LC_TIME, 'es_ES.UTF-8');
+                        setlocale(LC_TIME, 'spanish');
                         echo strftime("%e de %B de %Y"); #mostramos la fehca de hoy
                         ?>
                     </li>
@@ -56,7 +61,7 @@ session_start();
 
     <div class="subTitulos text-center my-3">
         <?php foreach ($categoris as $cat) { ?>
-           <a href="<?php echo "index.php?".$cat->id ?>"><?php echo $cat->nombre ?></a>
+           <a href="<?php echo "index.php?filtro=".$cat->id ?>"><?php echo $cat->nombre ?></a>
         <?php } ?>
     </div>
 
@@ -64,23 +69,65 @@ session_start();
 
     <div class="desarrollo">
         <div class="container">
-            <div class="row">
-                <?php foreach ($noticas as $entra) { ?>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="<?php echo "/patronDiseño/panel/uploads/noticias/".$entra->imagen ?>" class="card-img-top" alt="Noticia">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $entra->titulo ?></h5>
-                                <h6 class="card-text"><?php echo $entra->nombre ?></h6>
-                                <p class="card-text"><?php echo $entra->descripcion ?></p>
-                                <a href="<?php echo "detalle.php?id=$entra->id" ?>" class="btn btn-primary">Leer más</a>
-                            </div>
+            <div id="contenedor-noticias" class="row">
+            <?php foreach ($noticas as $entra) { ?>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="<?php echo "/patronDiseño/panel/uploads/noticias/".$entra['imagen'] ?>" class="card-img-top" alt="Noticia">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $entra['titulo'] ?></h5>
+                            <h6 class="card-text"><?php echo $entra['nombre'] ?></h6>
+                            <p class="card-text"><?php echo $entra['descripcion'] ?></p>
+                            <a href="<?php echo "detalle.php?id=".$entra['id'] ?>" class="btn btn-primary">Leer más</a>
                         </div>
                     </div>
-                <?php } ?>
+                </div>
+            <?php } ?>
             </div>
         </div>
     </div>
+    <button id="ver-mas" class="btn btn-secondary w-100">Ver más</button>
+    <script>
+    let contador = 6;
+    document.getElementById("ver-mas").addEventListener("click", async function() {
+        const response = await fetch("recursos/controllers/verMas.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                traer : contador,
+                <?php if (!empty($filtro)) {
+                    echo "filtro: $filtro";
+                } ?> 
+            })
+        });
 
+        const noticias = await response.json();
+        const contenedor = document.getElementById("contenedor-noticias");
+        contador += 6;
+        if (noticias.length === 0) {
+            document.getElementById("ver-mas").disabled = true;
+            document.getElementById("ver-mas").innerText = "No hay más noticias";
+        } else {
+            noticias.forEach(noticia => {
+                const noticiaHTML = `
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="/patronDiseño/panel/uploads/noticias/${noticia.imagen}" class="card-img-top" alt="Noticia">
+                            <div class="card-body">
+                                <h5 class="card-title">${noticia.titulo}</h5>
+                                <h6 class="card-text">${noticia.nombre}</h6>
+                                <p class="card-text">${noticia.descripcion}</p>
+                                <a href="detalle.php?id=${noticia.id}" class="btn btn-primary">Leer más</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                contenedor.innerHTML += noticiaHTML;
+            });
+        }
+    });
+</script>
 </body>
 </html>

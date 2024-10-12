@@ -27,9 +27,9 @@ $error = isset($_GET["error"])?$_GET["error"]:0;
         <input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesión">
     </form>
     <br>
-    <a class="btn btn-block" href="registrar.php" value="Registrar">Registrar</a>
+    <a class="btn  btn-secondary w-100" href="registrar.php" value="Registrar">Registrar</a><br>
     <br>
-    <a class="btn btn-block" href="/patronDiseño/" value="Iniciar Sesión">volver</a>
+    <a class="btn btn-info w-100" href="/patronDiseño/" value="Iniciar Sesión">volver</a>
 </div>
 <script src="../../scrips/regulares.js"></script>
 </body>

@@ -42,7 +42,7 @@ if (!empty($gmail) && !empty($pass)) {
                     echo "<div class='alert alert-success'>Se registró $gmail</div>";
                 } ?>
             </div>
-            <form class="form" id="formu" method="POST" action="registrar.php?registro=1">
+            <form class="form text-center" id="formu" method="POST" action="registrar.php?registro=1">
             <p class="alert alert-danger" role="alert" >Complete los campos</p> 
                 <div class="form-group">
                     <label for="gmail">Correo Electrónico</label>
@@ -52,11 +52,12 @@ if (!empty($gmail) && !empty($pass)) {
                     <label for="password">Contraseña</label>
                     <input type="text" class="form-control" name="password" id="password" placeholder="contraseña">
                 </div>
-                <input type="submit" class="btn btn-primary">
+                <br>
+                <input type="submit" class="btn btn-primary w-100">
             </form>
             <br>
             <form action="inicioSesion.php">
-                <button type="submit" class="btn btn-secondary">Volver</button>
+                <button type="submit" class="btn btn-secondary w-100">Volver</button>
             </form>
         </div>
     </div>

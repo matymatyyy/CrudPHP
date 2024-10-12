@@ -1,5 +1,5 @@
 <?php
-$id=isset($_POST["id"])?$_POST["id"]:"";
+$id=isset($_POST["id"])?$_POST["id"]:""; 
 $actualizo=isset($_GET["actualizar"])?$_GET["actualizar"]:0;
 $registro=isset($_GET["registro"])?$_GET["registro"]:0;
 $gmail=isset($_POST["gmail"])?$_POST["gmail"]:"";
@@ -55,15 +55,16 @@ if (!empty($id)) {
                         echo "<div class='alert alert-success'>Se actualizó $gmail</div>";
                     } ?>
                 </div>
-                <form class="form" method="POST" action="<?php echo empty($id) ? "registrar.php?registro=1" : "registrar.php?actualizar=1"; ?>">
+                <p class="error"></p>
+                <form class="form formulario" method="POST" action="<?php echo empty($id) ? "registrar.php?registro=1" : "registrar.php?actualizar=1"; ?>">
                     <div class="form-group">
                         <label for="gmail">Correo Electrónico</label>
-                        <input type="text" class="form-control" name="gmail" id="gmail"
+                        <input type="text" class="form-control email" name="gmail" id="gmail"
                                <?php echo empty($id) ? "placeholder='ejemplo@gmail.com'" : "value='" . htmlspecialchars($user->gmail, ENT_QUOTES) . "'"; ?>>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="text" class="form-control" name="password" id="password"
+                        <input type="text" class="form-control password" name="password" id="password"
                                <?php echo empty($id) ? "placeholder='contraseña'" : "value='" . htmlspecialchars($user->password, ENT_QUOTES) . "'"; ?>>
                     </div>
                     <?php if (!empty($id)) { ?>

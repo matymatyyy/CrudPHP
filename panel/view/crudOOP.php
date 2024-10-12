@@ -16,6 +16,8 @@ $usuarios= new Usuarios($database);
 if (!empty($id)) { 
     if ($estado == 1) {
         $usuarios->estado($id);
+        header("Location:/patronDiseño/panel/view/crudOOP.php");
+        exit();
     }
     if (!empty($gmail) && $usuarios->detele($id)) { #la accion de un if se agrego a la condicion del mismo
         $elimino = 1;

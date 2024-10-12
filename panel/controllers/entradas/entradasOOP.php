@@ -10,7 +10,7 @@ class Entradas{
 
     public function read($id=""){
         if (!empty($id)) {
-            $stmt = $this->conn->prepare("SELECT * FROM $this->tabla WHERE id=?");
+            $stmt = $this->conn->prepare("SELECT * FROM $this->tabla N INNER JOIN categorias C ON (N.id_categoria=C.id) WHERE N.id=? ;");
             $stmt->bind_param("i",$id);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -59,5 +59,30 @@ class Entradas{
         return $resultado;
     }
 
+    public function filtro($cat){#terminar el filtro para el index
+            $stmt = $this->conn->prepare("SELECT N.id,N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria=C.id) WHERE C.id=? ;");
+            $stmt->bind_param("i",$cat);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $entradas = [];
+                while ($entrada = $result->fetch_object()) {
+                $entradas[] = $entrada;
+            }
+            $stmt->close();
+            return $entradas;
+    }
 
+    public function readAjax($inicio, $cantidad) {
+        $stmt = $this->conn->prepare("SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria = C.id) LIMIT ?, ? ");
+        $stmt->bind_param("ii", $inicio, $cantidad);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC); #el MYSQLI_ASSOC lo devuelve como clave valor mas facil para trabajarlo con js
+    }
+    
+    public function filtroAjax($cat, $inicio, $cantidad) { #readFiltro para AJAX
+        $stmt = $this->conn->prepare("SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria = C.id) WHERE C.id = ? LIMIT ?, ? ");
+        $stmt->bind_param("iii", $cat, $inicio, $cantidad);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
