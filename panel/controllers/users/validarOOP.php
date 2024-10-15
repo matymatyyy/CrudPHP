@@ -6,10 +6,13 @@ include_once("../../include/connOOP.php");
 
 $database = new DataBase("users","admin");
 $usuario= new Usuarios($database);
+$existe=$usuario->existe($user,$pass);
+$datos= $existe->fetch_object();
 
-if($usuario->existe($user,$pass)){
+if($existe->num_rows > 0){
     session_start();
-    $_SESSION["gmail"]=$user;
+    $_SESSION["gmail"]=$datos->gmail;
+    $_SESSION["id"]=$datos->id;
     header("Location: ../../view/crudOOP.php");
     exit();
 }else{

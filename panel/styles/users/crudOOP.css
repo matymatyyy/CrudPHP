@@ -1,8 +1,11 @@
 body{
-    background-color: rgb(175, 170, 170);
+    background-color: wheat;
 }
 @media (min-width: 800px) {
     .botones{
         padding-top: 10%;
     }
+}
+.colorNav{
+    background-color: #65727c;
 }

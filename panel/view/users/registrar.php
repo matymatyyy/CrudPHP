@@ -8,6 +8,7 @@ $pass=isset($_POST["password"])?$_POST["password"]:"";
 $flag=0;
 include_once("../../controllers/users/usuariosOOP.php");
 include_once("../../include/connOOP.php");
+include_once("../../include/verificarSesion.php");
 
 $database = new DataBase("users","user");
 $usuario= new Usuarios($database);

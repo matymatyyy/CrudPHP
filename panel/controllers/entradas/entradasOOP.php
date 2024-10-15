@@ -18,7 +18,7 @@ class Entradas{
             $stmt->close();
             return $entrada;
         }else{
-            $stmt = $this->conn->prepare("SELECT N.id,N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria=C.id); ");
+            $stmt = $this->conn->prepare("SELECT N.id,N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre,A.gmail FROM $this->tabla N INNER JOIN categorias C ON (N.id_categoria=C.id) INNER JOIN admin A ON (N.id_user=A.id); ");
             $stmt->execute();
             $result = $stmt->get_result();
             $entradas = [];
@@ -84,5 +84,42 @@ class Entradas{
         $stmt->bind_param("iii", $cat, $inicio, $cantidad);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function filtroBusca($filtroCat = "", $filtroRed = "", $filtroTit = "") {
+        $query = "SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre, A.gmail 
+                  FROM `$this->tabla` N 
+                  INNER JOIN categorias C ON (N.id_categoria = C.id) 
+                  INNER JOIN admin A ON (N.id_user = A.id) 
+                  WHERE 1=1";
+        $params = [];
+        $types = ""; 
+        if (!empty($filtroCat)) {
+            $query .= " AND C.id = ?";
+            $params[] = $filtroCat;
+            $types .= "i";
+        }
+        if (!empty($filtroRed)) {
+            $query .= " AND A.gmail = ?";
+            $params[] = $filtroRed;
+            $types .= "s";
+        }
+        if (!empty($filtroTit)) {
+            $query .= " AND N.titulo LIKE ?";
+            $params[] = "%$filtroTit%";
+            $types .= "s"; 
+        }
+        $stmt = $this->conn->prepare($query);
+        if ($params) {
+            $stmt->bind_param($types, ...$params);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $entradas = [];
+        while ($entrada = $result->fetch_object()) {
+            $entradas[] = $entrada;
+        }
+        $stmt->close();
+        return $entradas;
     }
 }

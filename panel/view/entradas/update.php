@@ -12,17 +12,15 @@ $titulo= isset($_POST["titulo"])?$_POST["titulo"]:"";
 $descripcion= isset($_POST["descripcion"])?$_POST["descripcion"]:"";
 $texto= isset($_POST["texto"])?$_POST["texto"]:"";
 $categoria= isset($_POST["categoria"])?$_POST["categoria"]:"";
-$users= 1;#falta el id users
+$users= $_SESSION["id"];
 
 $database = new DataBase("users","noticias");
 $entradas= new Entradas($database);
 $database = new DataBase("users","categorias");
 $categorias= new Categorias($database);
 
-
-#falta modificar todo el archivo para adaptarlo
 if ($registro==1) {
-    if ($entradas->create($titulo,$descripcion,$texto,$categoria,1,ProcesarImag())) {
+    if ($entradas->create($titulo,$descripcion,$texto,$categoria,$users,ProcesarImag())) {
         header("Location:/patronDiseño/panel/view/entradas/entradas.php");
         exit();
     }
@@ -74,13 +72,15 @@ $cat=$categorias->read();
                         <label for="category">Elige una categoría:</label>
                         <select class="form-control" id="category" name="categoria">
                             <?php foreach ($cat as $cate) { ?>
-                                <option value="<?php echo $cate->id ?>"><?php echo htmlspecialchars($cate->nombre, ENT_QUOTES); ?></option>
+                                <option <?php if($actualizo && $cate->id == $entra->id_categoria){
+                                    echo "selected";
+                                } ?> value="<?php echo $cate->id ?>"><?php echo htmlspecialchars($cate->nombre, ENT_QUOTES); ?></option>
                             <?php } ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="file">Sube una imagen:</label>
-                        <input required type="file" class="form-control-file" name="file" id="file" accept="image/*">
+                        <input <?php echo (!$actualizo) ? "required" : "" ?>  type="file" class="form-control-file" name="file" id="file" accept="image/*">
                     </div>
                     <?php if (!empty($id)) { ?>
                         <input type="hidden" name="id" value="<?php echo $id; ?>">

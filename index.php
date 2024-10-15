@@ -35,10 +35,6 @@ if (!empty($filtro)) {
                 <span class="ms-2">CH Informa</span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -86,7 +82,9 @@ if (!empty($filtro)) {
             </div>
         </div>
     </div>
-    <button id="ver-mas" class="btn btn-secondary w-100">Ver más</button>
+    <?php if(count($noticas)>5){
+        echo "<button id='ver-mas' class='btn btn-secondary w-100'>Ver mas</button>";
+    } ?>
     <script>
     let contador = 6;
     document.getElementById("ver-mas").addEventListener("click", async function() {
@@ -107,8 +105,9 @@ if (!empty($filtro)) {
         const contenedor = document.getElementById("contenedor-noticias");
         contador += 6;
         if (noticias.length === 0) {
-            document.getElementById("ver-mas").disabled = true;
-            document.getElementById("ver-mas").innerText = "No hay más noticias";
+            let boton = document.getElementById("ver-mas");
+            boton.disabled = true;
+            boton.innerText = "No hay más noticias";
         } else {
             noticias.forEach(noticia => {
                 const noticiaHTML = `
