@@ -41,14 +41,14 @@ if (!empty($id)) {
 <div class="container">
         <div class="card">
             <div class="card-header text-center">
-                <h1><?php echo empty($id) ? "Agregar Categoría" : "Actualizar Categoría"; ?></h1>
+                <h1><?php echo empty($id) ? "Agregar Categoria" : "Actualizar Categoria"; ?></h1>
             </div>
             <div class="card-body">
                 <form class="form" method="POST" action="<?php echo empty($id) ? "update.php?registro=1" : "update.php?actualizar=1"; ?>">
                     <p class="text-danger"></p>
                     
                     <div class="form-group">
-                        <label for="nombre">Nombre de la Categoría</label>
+                        <label for="nombre">Nombre de la Categoria</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" 
                                <?php echo empty($id) ? "placeholder='Tecnología'" : "value='" . htmlspecialchars($cat->nombre, ENT_QUOTES) . "'"; ?> required>
                     </div>

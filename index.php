@@ -48,7 +48,7 @@ if (!empty($filtro)) {
                 <?php if (isset($_SESSION["usuario"])) { ?>
                     <a class="btn btn-primary" type="button" href="/patronDiseño/recursos/controllers/eliminarSesion.php">Cerrar sesion</a>
                 <?php }else{ ?>
-                    <a class="btn btn-primary" type="button" href="/patronDiseño/recursos/view/users/inicioSesion.php">Iniciar sesión</a>
+                    <a class="btn btn-primary" type="button" href="/patronDiseño/recursos/view/users/inicioSesion.php">Iniciar sesion</a>
                 <?php } ?>
             </div>
         </div>
@@ -74,7 +74,7 @@ if (!empty($filtro)) {
                             <h5 class="card-title"><?php echo $entra['titulo'] ?></h5>
                             <h6 class="card-text"><?php echo $entra['nombre'] ?></h6>
                             <p class="card-text"><?php echo $entra['descripcion'] ?></p>
-                            <a href="<?php echo "detalle.php?id=".$entra['id'] ?>" class="btn btn-primary">Leer más</a>
+                            <a href="<?php echo "detalle.php?id=".$entra['id'] ?>" class="btn btn-primary">Leer mas</a>
                         </div>
                     </div>
                 </div>

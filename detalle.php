@@ -45,9 +45,9 @@ if (!empty($id)) {
             </ul>
 
             <?php if (isset($_SESSION["usuario"])) { ?>
-                <a class="btn btn-primary" type="button" href="/patronDiseño/recursos/controllers/eliminarSesion.php">Cerrar sesión</a>
+                <a class="btn btn-primary" type="button" href="/patronDiseño/recursos/controllers/eliminarSesion.php">Cerrar sesion</a>
             <?php } else { ?>
-                <a class="btn btn-primary" type="button" href="/patronDiseño/recursos/view/users/inicioSesion.php">Iniciar sesión</a>
+                <a class="btn btn-primary" type="button" href="/patronDiseño/recursos/view/users/inicioSesion.php">Iniciar sesion</a>
             <?php } ?>
         </div>
     </div>
@@ -73,7 +73,7 @@ if (!empty($id)) {
         
     <?php } else { ?>
         <div class="alert alert-warning" role="alert">
-            Noticia no encontrada. Por favor.
+            Noticia no encontrada.
         </div>
     <?php } ?>
     <a href="index.php" class="btn btn-secondary mt-3">Volver a la lista de noticias</a>

@@ -29,7 +29,7 @@ class Categorias{
         }
     }
 
-    public function update($nombre,$id){    #actualizar este funcion
+    public function update($nombre,$id){
         $stmt = $this->conn->prepare("UPDATE $this->tabla SET nombre = ? WHERE id = ? ");
         $stmt->bind_param("si", $nombre,$id);
         $stmt->execute();

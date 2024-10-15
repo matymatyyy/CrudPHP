@@ -11,7 +11,7 @@
                 if ($actualizo==1 && $error==0) {
                     echo "se actualizo a $titulo <br>";
             } if ($registro==1) {
-                echo "se registro $titulo";
+                echo "se registro $titulo <br>";
             }
                 ?> 
 
@@ -24,7 +24,7 @@
     <ul class="dropdown-menu p-3" style="min-width: 300px;">
         <form method="GET" action="entradas.php">
             <div class="mb-3">
-                <label for="filtroTitulo" class="form-label">Filtrar por Título</label>
+                <label for="filtroTitulo" class="form-label">Filtrar por Titulo</label>
                 <input type="text" name="filtroTitulo" id="filtroTitulo" class="form-control" placeholder="Ingrese título">
             </div>
             <div class="mb-3">

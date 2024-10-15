@@ -1,5 +1,8 @@
 body{
     background-color: wheat;
+    overflow-x: hidden; /* escondemos la barra en el eje X y dejamos el desplazamiento en el eje Y */
+    overflow-y: auto;   
+    scrollbar-width: thin; 
 }
 @media (min-width: 800px) {
     .botones{

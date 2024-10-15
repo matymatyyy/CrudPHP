@@ -19,7 +19,7 @@ $error=isset($_GET["error"])?$_GET["error"]:"";
             <div class="card-body">
                 <?php if ($error == 1) { ?>
                     <div class="alert alert-danger text-center" role="alert">
-                        Usuario inválido
+                        Usuario invalido
                     </div>
                 <?php } ?>
                 <form action="controllers/users/validarOOP.php" method="POST" class="form">
@@ -33,7 +33,7 @@ $error=isset($_GET["error"])?$_GET["error"]:"";
                         <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña">
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                    <button type="submit" class="btn btn-primary w-100">Iniciar Sesion</button>
                 </form>
             </div>
         </div>
