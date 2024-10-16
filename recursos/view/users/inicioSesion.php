@@ -12,7 +12,7 @@ $error = isset($_GET["error"])?$_GET["error"]:0;
 <body>
 
 <div class="container mt-5">
-    <h2 class="text-center">Iniciar Sesión</h2>
+    <h2 class="text-center">Iniciar Sesion</h2>
     <p class="alert alert-danger" role="alert"><?php echo ($error==1)? "Usuario invalido":"Complete los campos";  ?></p> 
     
     <form class="form" id="formu" method="POST" action="../../controllers/Login.php">
@@ -24,7 +24,7 @@ $error = isset($_GET["error"])?$_GET["error"]:0;
             <label for="password">Contraseña</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="contraseña" required>
         </div>
-        <input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesión">
+        <input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesion">
     </form>
     <br>
     <a class="btn  btn-secondary w-100" href="registrar.php" value="Registrar">Registrar</a><br>

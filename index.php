@@ -3,10 +3,9 @@ include_once("panel/controllers/entradas/entradasOOP.php");
 include_once("panel/controllers/categorias/categoriasOOP.php");
 include_once("panel/include/connOOP.php");
 
-$database = new DataBase("users","noticias");
-$entradas= new Entradas($database);
-$database2 = new DataBase("users","categorias");
-$categorias= new Categorias($database2);
+$database = new DataBase("users");
+$entradas= new Entradas($database,"noticias");
+$categorias= new Categorias($database,"categorias");
 
 $categoris= $categorias->read();
 $filtro=isset($_GET["filtro"])? $_GET["filtro"]:"";
@@ -118,7 +117,7 @@ if (!empty($filtro)) {
                                 <h5 class="card-title">${noticia.titulo}</h5>
                                 <h6 class="card-text">${noticia.nombre}</h6>
                                 <p class="card-text">${noticia.descripcion}</p>
-                                <a href="detalle.php?id=${noticia.id}" class="btn btn-primary">Leer más</a>
+                                <a href="detalle.php?id=${noticia.id}" class="btn btn-primary">Leer mas</a>
                             </div>
                         </div>
                     </div>

@@ -2,11 +2,9 @@
 class DataBase{
     public $conn;
     public $database;
-    public $table;
 
-    function __construct($database,$table){#cuando se incia la clase solo se dicta la tabla y la base datos
+    function __construct($database){#cuando se incia la clase solo se dicta la tabla y la base datos
         $this->database= $database;
-        $this->table= $table;     
     }
 
     function conectar(){

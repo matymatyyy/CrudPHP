@@ -2,8 +2,8 @@
 include_once("../../panel/controllers/entradas/entradasOOP.php");
 include_once("../../panel/include/connOOP.php");
 
-$database = new DataBase("users", "noticias");
-$entradas = new Entradas($database);
+$database = new DataBase("users");
+$entradas = new Entradas($database, "noticias");
 
 $data = json_decode(file_get_contents("php://input"), true);
 $traer = isset($data["traer"]) ? $data["traer"] : 0;
@@ -16,7 +16,7 @@ if ($filtro) {
 }
 
 if (empty($noticias)) {
-    echo json_encode([]); #si esta vacio devolvemos un array vacio para que tire no hay mas noticas le boton
+    echo json_encode([]); #si esta vacio devolvemos un array vacio para que tire no hay mas noticas el boton
 } else {
     echo json_encode($noticias); 
 }

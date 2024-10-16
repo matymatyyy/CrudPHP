@@ -6,19 +6,24 @@ $gmail=isset($_POST["gmail"])?$_POST["gmail"]:"";
 $name=isset($_POST["users"])?$_POST["users"]:"";
 $pass=isset($_POST["password"])?$_POST["password"]:"";
 $flag=0;
+$error=0;
 include_once("../../controllers/users/usuariosOOP.php");
 include_once("../../include/connOOP.php");
 include_once("../../include/verificarSesion.php");
 
-$database = new DataBase("users","user");
-$usuario= new Usuarios($database);
+$database = new DataBase("users");
+$usuario= new Usuarios($database,"user");
 if (!empty($gmail) && !empty($pass)) {
     if ($registro==1) {
-        if($usuario->create($gmail,$name,$pass)){
-            header("Location:/patronDiseño/panel/view/crudOOP.php?gmail=$gmail");
-            exit();
+        if (!$usuario->duplicado($gmail)) {
+            if($usuario->create($gmail,$name,$pass)){
+                header("Location:/patronDiseño/panel/view/crudOOP.php?gmail=$gmail");
+                exit();
+            }else{
+                echo "error al crear";
+            }
         }else{
-            echo "error al crear";
+            $error=1;
         }
     }elseif($actualizo==1){
         if($usuario->update($gmail,$name,$pass,$id)){
@@ -52,9 +57,11 @@ if (!empty($id)) {
             <div class="card-body">
                 <div class="text-center">
                     <?php if ($flag==1 && $registro==1) {
-                        echo "<div class='alert alert-success'>Se registró $gmail</div>";
-                    } elseif ($flag==1 && $actualizo==1) {
-                        echo "<div class='alert alert-success'>Se actualizó $gmail</div>";
+                        echo "<div class='alert alert-success'>Se registro $gmail</div>";
+                    } if ($flag==1 && $actualizo==1) {
+                        echo "<div class='alert alert-success'>Se actualizo $gmail</div>";
+                    } if ($error) {
+                        echo "<div class='alert alert-success'>Usuario duplicado</div>";
                     } ?>
                 </div>
                 <p class="error"></p>

@@ -25,7 +25,7 @@
         <form method="GET" action="entradas.php">
             <div class="mb-3">
                 <label for="filtroTitulo" class="form-label">Filtrar por Titulo</label>
-                <input type="text" name="filtroTitulo" id="filtroTitulo" class="form-control" placeholder="Ingrese título">
+                <input type="text" name="filtroTitulo" id="filtroTitulo" class="form-control" placeholder="Ingrese titulo">
             </div>
             <div class="mb-3">
                 <label for="filtroRedactor" class="form-label">Filtrar por Redactor</label>

@@ -3,21 +3,22 @@ $gmail = isset($_POST["gmail"]) ? $_POST["gmail"] : "";
 $name=isset($_POST["name"]) ? $_POST["name"] : "";
 $pass = isset($_POST["password"]) ? $_POST["password"] : "";
 $registro = isset($_GET["registro"]) ? $_GET["registro"] : 0;
-$flag = 0;
+$flag = isset($_GET["flag"]) ? $_GET["flag"] : 0;
+$error=0;
 
 include_once("../../../panel/include/connOOP.php");
 include_once("../../../panel/controllers/users/usuariosOOP.php");
 
-$database = new DataBase("users", "user");
-$usuario = new Usuarios($database);
+$database = new DataBase("users");
+$usuario = new Usuarios($database, "user");
 
 if (!empty($gmail) && !empty($pass)) {
     if ($registro == 1) {
-        if ($usuario->create($gmail,$name, $pass)) {
-            $flag=1;
-            header("Location: ");
+        if (!$usuario->duplicado($gmail)) {
+            $usuario->create($gmail,$name, $pass);
+            header("Location: registrar.php?registro=1&flag=1");
         } else {
-            echo "Error al crear el usuario";
+            $error=1;
         }
     }
 }
@@ -40,7 +41,10 @@ if (!empty($gmail) && !empty($pass)) {
         <div class="card-body">
             <div class="text-center">
                 <?php if ($flag == 1 && $registro == 1) {
-                    echo "<div class='alert alert-success'>Se registró $gmail</div>";
+                    echo "<div class='alert-success'>Se registro correctamente </div><br>";
+                }
+                if ($error) {
+                    echo "<p class='alert-danger' role='alert' >Este gmail ya existe</p> ";
                 } ?>
             </div>
             <form class="form text-center" id="formu" method="POST" action="registrar.php?registro=1">

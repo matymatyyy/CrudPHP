@@ -21,7 +21,6 @@
                 <thead>
                     <tr>
                         <th>Email</th>
-                        <th>ID</th>
                         <th>Users</th>
                         <th>Estado</th>
                         <th>Modificar</th>
@@ -33,7 +32,6 @@
                 foreach ($user as $usuario) { ?>
                     <tr>
                         <td><?php echo $usuario->gmail; ?></td>
-                        <td><?php echo $usuario->id; ?> </td>
                         <td class="limit-text"><?php echo $usuario->name ?></td>
 
                     <td>

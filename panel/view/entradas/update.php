@@ -14,10 +14,9 @@ $texto= isset($_POST["texto"])?$_POST["texto"]:"";
 $categoria= isset($_POST["categoria"])?$_POST["categoria"]:"";
 $users= $_SESSION["id"];
 
-$database = new DataBase("users","noticias");
-$entradas= new Entradas($database);
-$database = new DataBase("users","categorias");
-$categorias= new Categorias($database);
+$database = new DataBase("users");
+$entradas= new Entradas($database,"noticias");
+$categorias= new Categorias($database,"categorias");
 
 if ($registro==1) {
     if ($entradas->create($titulo,$descripcion,$texto,$categoria,$users,ProcesarImag())) {
@@ -57,7 +56,7 @@ $cat=$categorias->read();
                     <div class="form-group">
                         <label for="titulo">Título</label>
                         <input type="text" class="form-control" name="titulo" id="titulo" 
-                               <?php echo empty($id) ? "placeholder='Título'" : "value='" . htmlspecialchars($entra->titulo, ENT_QUOTES) . "'"; ?> required>
+                               <?php echo empty($id) ? "placeholder='Titulo'" : "value='" . htmlspecialchars($entra->titulo, ENT_QUOTES) . "'"; ?> required>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción</label>

@@ -10,8 +10,8 @@ $gmail = isset($_GET["gmail"]) ? $_GET["gmail"] : "";
 $actualizo=isset($_GET["actualizo"]) ? $_GET["actualizo"] : 0;
 $estado= isset($_POST["estado"]) ? $_POST["estado"] : 0;
 
-$database = new DataBase("users","user");
-$usuarios= new Usuarios($database);
+$database = new DataBase("users");
+$usuarios= new Usuarios($database,"user");
 
 if (!empty($id)) { 
     if ($estado == 1) {

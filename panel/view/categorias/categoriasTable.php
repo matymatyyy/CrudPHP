@@ -23,7 +23,6 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>ID</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -32,7 +31,6 @@
                 <?php foreach ($categoria as $cat) { ?>
                     <tr>
                         <td><?php echo $cat->nombre; ?></td>
-                        <td><?php echo $cat->id; ?> </td>
                         
                         <td><form align="center" action=<?php echo "update.php?actualizar=1" ?> method="POST"><input value="Actualizar" type="submit" class="btn btn-secondary"><input type="hidden" name="id" value=<?php echo $cat->id ?>></form></td>
                         

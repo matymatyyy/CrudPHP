@@ -2,8 +2,8 @@
 include_once("panel/controllers/entradas/entradasOOP.php");
 include_once("panel/include/connOOP.php");
 
-$database = new DataBase("users", "noticias");
-$entradas = new Entradas($database);
+$database = new DataBase("users");
+$entradas = new Entradas($database, "noticias");
 session_start();
 
 $id = isset($_GET["id"])?$_GET["id"]:""; 

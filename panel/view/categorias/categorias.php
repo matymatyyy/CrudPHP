@@ -10,8 +10,8 @@ $nombre = isset($_GET["nombre"]) ? $_GET["nombre"] : "";
 $actualizo=isset($_GET["actualizo"]) ? $_GET["actualizo"] : 0;
 $registro=isset($_GET["registro"])?$_GET["registro"]:0;
 
-$database = new DataBase("users","categorias");
-$categorias= new Categorias($database);
+$database = new DataBase("users");
+$categorias= new Categorias($database,"categorias");
 
 if (!empty($nombre) && !empty($id) && $categorias->detele($id)) { #la accion de un if se agrego a la condicion del mismo
     $elimino = 1;

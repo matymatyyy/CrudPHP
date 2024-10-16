@@ -8,8 +8,8 @@ $actualizo=isset($_GET["actualizar"])?$_GET["actualizar"]:0;
 $registro=isset($_GET["registro"])?$_GET["registro"]:0;
 $nombre= isset($_POST["nombre"])?$_POST["nombre"]:"";
 
-$database = new DataBase("users","categorias");
-$categorias= new Categorias($database);
+$database = new DataBase("users");
+$categorias= new Categorias($database,"categorias");
 
 if ($registro==1) {
     if ($categorias->create($nombre)) {

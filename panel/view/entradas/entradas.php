@@ -14,10 +14,9 @@ $filtroRedactor=isset($_GET["filtroRedactor"])?$_GET["filtroRedactor"]:"";
 $filtroTitulo=isset($_GET["filtroTitulo"])?$_GET["filtroTitulo"]:"";
 $filtroCategoria=isset($_GET["filtroCategoria"])?$_GET["filtroCategoria"]:"";
 
-$database = new DataBase("users","noticias");
-$entradas= new Entradas($database);
-$database2 = new DataBase("users","categorias");
-$categoria = new Categorias($database2);
+$database = new DataBase("users");
+$entradas= new Entradas($database,"noticias");
+$categoria = new Categorias($database,"categorias");
 $categorias= $categoria->read();
 
 if (!empty($id) && !empty($titulo) && $entradas->detele($id)) {

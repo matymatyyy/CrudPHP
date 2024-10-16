@@ -3,9 +3,9 @@ class Usuarios{
     private $conn;
     public $tabla;
     
-    public function __construct(DataBase $db) {#asignacion de la base de datos cuando se inicia el objeto
+    public function __construct(DataBase $db,$tabla) {#asignacion de la base de datos cuando se inicia el objeto
         $this->conn= $db->conectar();
-        $this->tabla= $db->table;
+        $this->tabla= $tabla;
     }
 
     public function create($user,$name,$pass){
@@ -59,6 +59,22 @@ class Usuarios{
 
     public function existe($user,$pass){
         $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? AND password=? AND eliminado=0"); #funcion login
+        $stmt->bind_param("ss",$user,$pass);
+        $stmt -> execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result; 
+    }
+    public function duplicado($user){
+        $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? "); #funcion login
+        $stmt->bind_param("s",$user);
+        $stmt -> execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result; 
+    }
+    public function existeAdmin($user,$pass){
+        $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? AND password=?"); 
         $stmt->bind_param("ss",$user,$pass);
         $stmt -> execute();
         $result = $stmt->get_result();
