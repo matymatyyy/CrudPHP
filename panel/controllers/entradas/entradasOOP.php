@@ -73,25 +73,21 @@ class Entradas{
     }
 
     public function readAjax($inicio, $cantidad) {
-        $stmt = $this->conn->prepare("SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria = C.id) LIMIT ?, ? ");
+        $stmt = $this->conn->prepare("SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria = C.id) ORDER BY N.fecha DESC LIMIT ?, ? ;");
         $stmt->bind_param("ii", $inicio, $cantidad);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC); #el MYSQLI_ASSOC lo devuelve como clave valor mas facil para trabajarlo con js
     }
     
     public function filtroAjax($cat, $inicio, $cantidad) { #readFiltro para AJAX
-        $stmt = $this->conn->prepare("SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria = C.id) WHERE C.id = ? LIMIT ?, ? ");
+        $stmt = $this->conn->prepare("SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria = C.id) WHERE C.id = ? ORDER BY N.fecha DESC LIMIT ?, ? ;"); #siempre traemos las noticias mas nuevas primero
         $stmt->bind_param("iii", $cat, $inicio, $cantidad);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function filtroBusca($filtroCat = "", $filtroRed = "", $filtroTit = "") {
-        $query = "SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre, A.gmail 
-                  FROM `$this->tabla` N 
-                  INNER JOIN categorias C ON (N.id_categoria = C.id) 
-                  INNER JOIN admin A ON (N.id_user = A.id) 
-                  WHERE 1=1";
+        $query = "SELECT N.id, N.titulo, N.descripcion, N.fecha, N.imagen, C.nombre, A.gmail FROM `$this->tabla` N INNER JOIN categorias C ON (N.id_categoria = C.id) INNER JOIN admin A ON (N.id_user = A.id) WHERE 1=1"; #falta ordenar por fecha y demas opciones
         $params = [];
         $types = ""; 
         if (!empty($filtroCat)) {

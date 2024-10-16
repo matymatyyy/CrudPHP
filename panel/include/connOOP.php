@@ -1,7 +1,7 @@
 <?php
 class DataBase{
-    public $conn;
-    public $database;
+    private $conn;
+    private $database;
 
     function __construct($database){#cuando se incia la clase solo se dicta la tabla y la base datos
         $this->database= $database;
@@ -12,6 +12,6 @@ class DataBase{
         if ($this->conn->connect_error) {
             die("Conexión fallida: " . $this->conn->connect_error);
         }
-        return $this->conn;
+        return $this->conn; #podriamos hacer geter y seter para mejorar los accesos
     }
 }

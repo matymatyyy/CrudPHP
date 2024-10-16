@@ -72,12 +72,18 @@ if (!empty($filtro)) {
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $entra['titulo'] ?></h5>
                             <h6 class="card-text"><?php echo $entra['nombre'] ?></h6>
+                            <p class="card-text"><?php
+                            setlocale(LC_TIME, 'Spanish_Spain');
+                            $dateTime = new DateTime($entra['fecha']);
+                            echo $fechaFormateada = strftime('%d de %B de %Y', $dateTime->getTimestamp()); ?></p>
                             <p class="card-text"><?php echo $entra['descripcion'] ?></p>
                             <a href="<?php echo "detalle.php?id=".$entra['id'] ?>" class="btn btn-primary">Leer mas</a>
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php } if (count($noticas)==0) {
+                echo "<div class='alert alert-warning' role='alert'>Noticias no encontradas.</div>";
+            } ?>
             </div>
         </div>
     </div>
@@ -109,6 +115,9 @@ if (!empty($filtro)) {
             boton.innerText = "No hay más noticias";
         } else {
             noticias.forEach(noticia => {
+                const fecha = new Date(noticia.fecha);
+                const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+                const fechaFormateada = new Intl.DateTimeFormat('es-ES', opciones).format(fecha);
                 const noticiaHTML = `
                     <div class="col-md-4">
                         <div class="card">
@@ -116,6 +125,7 @@ if (!empty($filtro)) {
                             <div class="card-body">
                                 <h5 class="card-title">${noticia.titulo}</h5>
                                 <h6 class="card-text">${noticia.nombre}</h6>
+                                <p class="card-text">${fechaFormateada}</p>
                                 <p class="card-text">${noticia.descripcion}</p>
                                 <a href="detalle.php?id=${noticia.id}" class="btn btn-primary">Leer mas</a>
                             </div>
