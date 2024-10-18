@@ -8,6 +8,7 @@ $error=0;
 
 include_once("../../../panel/include/connOOP.php");
 include_once("../../../panel/controllers/users/usuariosOOP.php");
+include_once("enviarPost.php");
 
 $database = new DataBase("users");
 $usuario = new Usuarios($database, "user");
@@ -16,6 +17,8 @@ if (!empty($gmail) && !empty($pass)) {
     if ($registro == 1) {
         if (!$usuario->duplicado($gmail)) {
             $usuario->create($gmail,$name, $pass);
+            $data = array("gmail" => $gmail);
+            sendPost("http://localhost/patronDiseño/recursos/view/users/enviarCorreo.php",$data);
             header("Location: registrar.php?registro=1&flag=1");
         } else {
             $error=1;
@@ -41,7 +44,7 @@ if (!empty($gmail) && !empty($pass)) {
         <div class="card-body">
             <div class="text-center">
                 <?php if ($flag == 1 && $registro == 1) {
-                    echo "<div class='alert-success'>Se registro correctamente </div><br>";
+                    echo "<div class='alert-success'>Se registro correctamente, enter al email y confirme el user </div><br>";
                 }
                 if ($error) {
                     echo "<p class='alert-danger' role='alert' >Este gmail ya existe</p> ";

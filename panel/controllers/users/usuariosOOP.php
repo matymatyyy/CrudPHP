@@ -69,7 +69,7 @@ class Usuarios{
         $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? "); #funcion login
         $stmt->bind_param("s",$user);
         $stmt -> execute();
-        $result = $stmt->get_result();
+        $result = $stmt->get_result()->num_rows > 0;
         $stmt->close();
         return $result; 
     }
