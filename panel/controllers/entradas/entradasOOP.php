@@ -118,4 +118,25 @@ class Entradas{
         $stmt->close();
         return $entradas;
     }
+
+    public function guardarComentario($id_noticia, $id_usuario, $comentario) {
+        $stmt = $this->conn->prepare("INSERT INTO comentarios (id_noticia, id_usuario, comentario) VALUES (?, ?, ?)");
+        $stmt->bind_param("iis", $id_noticia, $id_usuario, $comentario);
+        $stmt->execute();
+    }
+    
+    public function obtenerComentarios($id_noticia) {
+        $stmt = $this->conn->prepare("
+            SELECT c.comentario, c.fecha, u.name 
+            FROM comentarios c
+            JOIN user u ON c.id_usuario = u.id
+            WHERE c.id_noticia = ?
+            ORDER BY c.fecha DESC
+        ");
+        $stmt->bind_param("i", $id_noticia);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
 }

@@ -1,6 +1,6 @@
 <?php
 function sendPost($url, array $data) {
-    # Inicia la sesión cURL
+    # Inicia la sesión cURL = client url
     $ch = curl_init($url);
     # Configura cURL para enviar una solicitud POST
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -10,10 +10,8 @@ function sendPost($url, array $data) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
     # Ejecuta la solicitud
     curl_exec($ch);
-    # Verifica si hubo algún error
     if (curl_errno($ch)) {
         echo 'Error en cURL: ' . curl_error($ch);
     }
-    # Cierra cURL
     curl_close($ch);
 }

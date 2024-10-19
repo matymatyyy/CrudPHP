@@ -4,9 +4,9 @@ if($_SERVER['REQUEST_METHOD'] != 'POST' ){
     exit();
 }
 
-require '../../librerias/PHPmailer/src/PHPMailer.php';
-require '../../librerias/PHPmailer/src/Exception.php';
-require '../../librerias/PHPmailer/src/SMTP.php';
+require '../librerias/PHPmailer/src/PHPMailer.php';
+require '../librerias/PHPmailer/src/Exception.php';
+require '../librerias/PHPmailer/src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 

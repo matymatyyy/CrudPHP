@@ -8,7 +8,7 @@ $error=0;
 
 include_once("../../../panel/include/connOOP.php");
 include_once("../../../panel/controllers/users/usuariosOOP.php");
-include_once("enviarPost.php");
+include_once("../../controllers/enviarPost.php");
 
 $database = new DataBase("users");
 $usuario = new Usuarios($database, "user");
@@ -19,7 +19,7 @@ if (!empty($gmail) && !empty($pass)) {
             $token = bin2hex(random_bytes(16));
             $usuario->newUser($gmail,$name, $pass,$token);
             $data = array("gmail" => $gmail, "nombre" => $name, "token" => $token);
-            sendPost("http://localhost/patronDiseño/recursos/view/users/enviarCorreo.php",$data);
+            sendPost("http://localhost/patronDiseño/recursos/controllers/enviarCorreo.php",$data); #seria mas eficiente remplazar esta funcion por un AJAX
             header("Location: registrar.php?registro=1&flag=1");
         } else {
             $error=1;
@@ -40,7 +40,7 @@ if (!empty($gmail) && !empty($pass)) {
 <div class="container">
     <div class="card">
         <div class="card-header text-center">
-            <h1>registrar Usuario</h1>
+            <h1>Registrar Usuario</h1>
         </div>
         <div class="card-body">
             <div class="text-center">

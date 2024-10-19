@@ -76,7 +76,7 @@ class Usuarios{
     }
 
     public function existe($user,$pass){
-        $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? AND password=? AND eliminado=0"); #funcion login
+        $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? AND password= ? AND eliminado=0"); #funcion login
         $stmt->bind_param("ss",$user,$pass);
         $stmt -> execute();
         $result = $stmt->get_result();
@@ -84,7 +84,7 @@ class Usuarios{
         return $result; 
     }
     public function duplicado($user){
-        $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? "); #funcion login
+        $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE gmail= ? "); 
         $stmt->bind_param("s",$user);
         $stmt -> execute();
         $result = $stmt->get_result()->num_rows > 0;

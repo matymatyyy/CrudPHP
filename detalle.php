@@ -76,6 +76,43 @@ if (!empty($id)) {
             Noticia no encontrada.
         </div>
     <?php } ?>
+    <?php if ($noticia) { ?>
+    <div class="container my-5">
+        <h3>Comentarios</h3>
+        <?php
+        if (isset($_SESSION["usuario"])) { ?>
+            <form action="recursos/controllers/guardarComentarios.php" method="POST">
+                <input type="hidden" name="noticia_id" value="<?php echo $id; ?>">
+                <div class="mb-3">
+                    <label for="comentario" class="form-label">Escribe tu comentario</label>
+                    <textarea class="form-control" name="comentario" id="comentario" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar comentario</button>
+            </form>
+        <?php } else { ?>
+            <p>Debes <a href="inicioSesion.php">iniciar sesión</a> para comentar.</p>
+        <?php } ?>
+        
+        <h4>Comentarios anteriores:</h4>
+        <?php
+        $comentarios = $entradas->obtenerComentarios($id);
+        if ($comentarios) { #falta mejorar el diseño de los comentarios
+            foreach ($comentarios as $comentario) {
+                echo "<div class='card my-2'>";
+                echo "<div class='card-body'>";
+                echo "<h6 class='card-title'>" . htmlspecialchars($comentario['name']) . "</h6>";
+                echo "<p class='card-text'>" . htmlspecialchars($comentario['comentario']) . "</p>";
+                echo "<p class='text-muted'>" . htmlspecialchars($comentario['fecha']) . "</p>";
+                echo "</div>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p>No hay comentarios aún.</p>";
+        }
+        ?>
+    </div>
+<?php } ?>
+<br>
     <a href="index.php" class="btn btn-secondary mt-3">Volver a la lista de noticias</a>
 </div>
 

@@ -6,10 +6,11 @@ include_once("../../panel/include/connOOP.php");
 
 $database = new DataBase("users");
 $usuario= new Usuarios($database,"user");
+$datos=$usuario->existe($user,$pass);
 
-if($usuario->existe($user,$pass)->num_rows > 0){
+if($datos->num_rows > 0){
     session_start();
-    $_SESSION["usuario"]=$user;
+    $_SESSION["usuario"]=$datos->fetch_object()->id;
     header("Location: ../../index.php");
     exit();
 }else{

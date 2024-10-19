@@ -59,9 +59,7 @@ if (!empty($filtro)) {
            <a href="<?php echo "index.php?filtro=".$cat->id ?>"><?php echo $cat->nombre ?></a>
         <?php } ?>
     </div>
-
     <hr>
-
     <div class="desarrollo">
         <div class="container">
             <div id="contenedor-noticias" class="row">
