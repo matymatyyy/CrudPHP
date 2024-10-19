@@ -16,8 +16,9 @@ $usuario = new Usuarios($database, "user");
 if (!empty($gmail) && !empty($pass)) {
     if ($registro == 1) {
         if (!$usuario->duplicado($gmail)) {
-            $usuario->create($gmail,$name, $pass);
-            $data = array("gmail" => $gmail);
+            $token = bin2hex(random_bytes(16));
+            $usuario->newUser($gmail,$name, $pass,$token);
+            $data = array("gmail" => $gmail, "nombre" => $name, "token" => $token);
             sendPost("http://localhost/patronDiseño/recursos/view/users/enviarCorreo.php",$data);
             header("Location: registrar.php?registro=1&flag=1");
         } else {

@@ -17,6 +17,24 @@ class Usuarios{
         return $resultado;
     }
 
+    public function newUser($user,$name,$pass,$token,$estado=1){
+        $stmt = $this->conn->prepare("INSERT INTO `$this->tabla`( `gmail`, `name`, `password`, `hash`, `eliminado`) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("ssssi", $user, $name, $pass, $token, $estado);
+        $stmt -> execute();
+        $resultado = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $resultado;
+    }
+
+    public function confirmar($hash){
+        $stmt = $this->conn->prepare("UPDATE $this->tabla SET eliminado=0 WHERE hash = ? ");
+        $stmt->bind_param("s",$hash);
+        $stmt->execute();
+        $resultado = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $resultado;
+    }
+
     public function read($id=""){
         if (!empty($id)) {
             $stmt = $this->conn->prepare("SELECT * FROM $this->tabla WHERE id=?");
