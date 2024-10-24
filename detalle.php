@@ -120,6 +120,72 @@ if (!empty($id)) {
         </div>
     <?php } ?>
 </div>
-        <!-- deberia agregar un footer -->
+<footer class="bg-light text-dark pt-3 pb-3">
+    <div class="container text-center text-md-start">
+        <div class="text-center">
+                <a class="navbar-brand d-flex align-items-center justify-content-center" href="index.php">
+                    <img src="/patronDiseño/recursos/img/ch.png" alt="Logo" width="50" height="44" class="d-inline-block align-text-center">
+                    <span class="ms-2 text-uppercase">CH Informa</span>
+                </a>
+        </div><hr class="mb-2">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-2">
+                <h5 class="text-uppercase mb-2 font-weight-bold text-primary fs-6">Nosotros</h5>
+                <hr class="mb-2">
+                <p class="fs-6">Lorem, ipsum dolor sit amet consectetur adipisicing elit. In distinctio aspernatur asperiores ut. Voluptatem sequi voluptate tempora velit mollitia. Maiores commodi iste, tempore doloremque eveniet officiis quis quaerat magni voluptatem.</p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-2">
+                <h5 class="text-uppercase mb-2 font-weight-bold text-primary fs-6">Dejanos ayudar</h5>
+                <hr class="mb-2">
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-2">
+                <h5 class="text-uppercase mb-2 font-weight-bold text-primary fs-6">Aca va otro texto</h5>
+                <hr class="mb-2">
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+                <p><a href="#" class="text-dark fs-6">lorem</a></p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-2">
+                <h5 class="text-uppercase mb-2 font-weight-bold text-primary fs-6">Contacto</h5>
+                <hr class="mb-2">
+                <p class="fs-6"><i class="fas fa-home me-2"></i> Argentina, Buenos Aires, Chacabuco</p>
+                <p class="fs-6"><i class="fas fa-envelope me-2"></i> matydominguez555@gmail.com</p>
+                <p class="fs-6"><i class="fas fa-phone me-2"></i> +54 2352 551599</p>
+                <p class="fs-6"><i class="fas fa-print me-2"></i> +54 2352 551599</p>
+            </div>
+            <hr class="mb-2">
+            <div class="text-center mb-2">
+                <p class="fs-6">
+                    Copyright de
+                    <a href="#"><strong class="text-primary">CH Informa</strong></a>
+                </p>
+            </div>
+            <div class="text-center">
+                <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item">
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-facebook"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-google-plus"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-linkedin-in"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-youtube"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
