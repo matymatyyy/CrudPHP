@@ -1,32 +1,3 @@
-<?php
-$gmail = isset($_POST["gmail"]) ? $_POST["gmail"] : "";
-$name=isset($_POST["name"]) ? $_POST["name"] : "";
-$pass = isset($_POST["password"]) ? $_POST["password"] : "";
-$registro = isset($_GET["registro"]) ? $_GET["registro"] : 0;
-$flag = isset($_GET["flag"]) ? $_GET["flag"] : 0;
-$error=0;
-
-include_once("../../../panel/include/connOOP.php");
-include_once("../../../panel/controllers/users/usuariosOOP.php");
-include_once("../../controllers/enviarPost.php");
-
-$database = new DataBase("users");
-$usuario = new Usuarios($database, "user");
-
-if (!empty($gmail) && !empty($pass)) {
-    if ($registro == 1) {
-        if (!$usuario->duplicado($gmail)) {
-            $token = bin2hex(random_bytes(16));
-            $usuario->newUser($gmail,$name, $pass,$token);
-            $data = array("gmail" => $gmail, "nombre" => $name, "token" => $token);
-            sendPost("http://localhost/patronDiseño/recursos/controllers/enviarCorreo.php",$data); #seria mas eficiente remplazar esta funcion por un AJAX
-            header("Location: registrar.php?registro=1&flag=1");
-        } else {
-            $error=1;
-        }
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,16 +14,10 @@ if (!empty($gmail) && !empty($pass)) {
             <h1>Registrar Usuario</h1>
         </div>
         <div class="card-body">
-            <div class="text-center">
-                <?php if ($flag == 1 && $registro == 1) {
-                    echo "<div class='alert-success'>Se registro correctamente, enter al email y confirme el user </div><br>";
-                }
-                if ($error) {
-                    echo "<p class='alert-danger' role='alert' >Este gmail ya existe</p> ";
-                } ?>
+            <div class="text-center" id="result">
             </div>
-            <form class="form text-center" id="formu" method="POST" action="registrar.php?registro=1">
-            <p class="alert alert-danger" role="alert" >Complete los campos</p> 
+            <div class="form text-center" id="formu" method="POST" action="registrar.php?registro=1">
+            <p class="alert alert-danger" role="alert" id="mesajes">Complete los campos</p> 
                 <div class="form-group">
                     <label for="gmail">Correo Electrónico</label>
                     <input type="text" class="form-control" name="gmail" id="gmail" placeholder="ejemplo@gmail.com">
@@ -66,8 +31,8 @@ if (!empty($gmail) && !empty($pass)) {
                     <input type="text" class="form-control" name="password" id="password" placeholder="contraseña">
                 </div>
                 <br>
-                <input type="submit" class="btn btn-primary w-100">
-            </form>
+                <input type="submit" class="btn btn-primary w-100" id="enviar">
+            </div>
             <br>
             <form action="inicioSesion.php">
                 <button type="submit" class="btn btn-secondary w-100">Volver</button>
@@ -76,5 +41,52 @@ if (!empty($gmail) && !empty($pass)) {
     </div>
 </div>
 <script src="../../scrips/regulares.js"></script>
+<script>
+    let boton= document.getElementById("enviar");
+    boton.addEventListener("click", async function(event) {
+        let gmail = document.getElementById("gmail").value;
+        let name = document.getElementById("name").value;
+        let password = document.getElementById("password").value;
+        const resultado = validarTotalDatos(event);
+        if (!resultado) {
+            return false;
+        }
+        boton.disabled = true;
+        const texto = document.getElementById("mesajes");
+        texto.innerHTML = "Procesando, por favor espere...";
+        texto.className = "alert alert-info";
+        try {
+            const response = await fetch("../../controllers/registro.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "gmail": gmail,
+                    "name": name,
+                    "password": password
+                })
+            });
+
+            const respuesta = await response.json();
+            if (respuesta == "1") {
+                texto.innerHTML = "Se registró correctamente, por favor revise su email para confirmar el usuario";
+                texto.className = "alert alert-success";
+                boton.disabled = false;
+            } else if (respuesta == "2") {
+                texto.innerHTML = "Este usuario ya existe";
+                texto.className = "alert alert-warning";
+                boton.disabled = false;
+            } else {
+                texto.innerHTML = "Error en el registro";
+                texto.className = "alert alert-danger";
+                boton.disabled = false;
+            }
+        } catch (error) {
+            texto.innerHTML = "Error en la conexión o en el servidor";
+            texto.className = "alert alert-danger";
+        }
+    });
+</script>
 </body>
 </html>

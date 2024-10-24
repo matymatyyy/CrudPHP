@@ -7,7 +7,8 @@ const min8 = /^.{8,}$/;
 const minNumber = /^(?=.*\d).*$/; 
 const minCaracterEspecial = /^(?=.*[@$!%*?&]).*$/; 
 const minMayus = /^(?=.*[A-Z]).*$/; 
-const minMinus = /^(?=.*[a-z]).*$/; 
+const minMinus = /^(?=.*[a-z]).*$/;
+
 
 let flag1 = false;
 let flag2 = false;
@@ -17,7 +18,7 @@ formulario.addEventListener("submit", function(e){
     passwordValidation(); 
 
     if (flag1 && flag2) {
-        return; // El formulario se enviará automáticamente
+        return;
     } else {
         e.preventDefault(); 
     }
@@ -27,6 +28,7 @@ email.addEventListener("input", emailValidation);
 pass.addEventListener("input", passwordValidation);
 
 function emailValidation() {
+    mensaje.className="alert alert-danger";
     const correo = email.value;
     mensaje.innerHTML = ""; 
     flag1 = emailRegex.test(correo);
@@ -37,6 +39,7 @@ function emailValidation() {
 }
 
 function passwordValidation() {
+    mensaje.className="alert alert-danger";
     const contra = pass.value;
     mensaje.innerHTML = "";
     flag2 = true; 
@@ -56,5 +59,16 @@ function passwordValidation() {
     } else if (!min8.test(contra)) {
         flag2 = false;
         mensaje.innerHTML = "Minimo 8 caracteres";
+    }
+}
+
+function validarTotalDatos(e) {
+    emailValidation(); 
+    passwordValidation(); 
+    if (flag1 && flag2) {
+        return 1;
+    } else {
+        e.preventDefault(); 
+        return 0;
     }
 }

@@ -12,24 +12,30 @@ $error = isset($_GET["error"])?$_GET["error"]:0;
 <body>
 
 <div class="container mt-5">
-    <h2 class="text-center">Iniciar Sesion</h2>
-    <p class="alert alert-danger" role="alert"><?php echo ($error==1)? "Usuario invalido":"Complete los campos";  ?></p> 
-    
-    <form class="form" id="formu" method="POST" action="../../controllers/Login.php">
-        <div class="form-group">
-            <label for="gmail">Correo Electrónico</label>
-            <input type="email" class="form-control" name="gmail" id="gmail" placeholder="ejemplo@gmail.com" required>
+    <div class="card">
+        <div class="card-header text-center">
+        <h1>Iniciar Sesion</h1>
         </div>
-        <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="contraseña" required>
-        </div>
-        <input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesion">
-    </form>
-    <br>
-    <a class="btn  btn-secondary w-100" href="registrar.php" value="Registrar">Registrar</a><br>
-    <br>
-    <a class="btn btn-info w-100" href="/patronDiseño/" value="Iniciar Sesión">volver</a>
+            <div class="card-body">
+                <p class="alert alert-danger" role="alert"><?php echo ($error==1)? "Usuario invalido":"Complete los campos";  ?></p> 
+                
+                <form class="form" id="formu" method="POST" action="../../controllers/Login.php">
+                    <div class="form-group">
+                        <label for="gmail">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="gmail" id="gmail" placeholder="ejemplo@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="contraseña" required>
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesion">
+                </form>
+                <br>
+                <a class="btn  btn-secondary w-100" href="registrar.php" value="Registrar">Registrar</a><br>
+                <br>
+                <a class="btn btn-info w-100" href="/patronDiseño/" value="Iniciar Sesión">volver</a>
+            </div>
+    </div>
 </div>
 <script src="../../scrips/regulares.js"></script>
 </body>
