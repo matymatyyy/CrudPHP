@@ -30,12 +30,8 @@ $categoria= $categorias->read();
 </head>
 <body>
 <?php include_once("../shared/nav.html") ?>
-    <br>
-        <div class="row">
-            <?php include_once("../shared/botones.html");
-            include_once("categoriasTable.php");
-            ?>
-    </div>   
+<br>
+<?php  include_once("categoriasTable.php"); ?>   
 <script src="../../scrips/users/limitText.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<?php  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,21 +73,22 @@
             if (respuesta == "1") {
                 texto.innerHTML = "Se registró correctamente, por favor revise su email para confirmar el usuario";
                 texto.className = "alert alert-success";
-                boton.disabled = false;
             } else if (respuesta == "2") {
                 texto.innerHTML = "Este usuario ya existe";
                 texto.className = "alert alert-warning";
-                boton.disabled = false;
             } else {
                 texto.innerHTML = "Error en el registro";
                 texto.className = "alert alert-danger";
-                boton.disabled = false;
             }
+            boton.disabled = false;
+            document.getElementById("gmail").value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("password").value = "";
         } catch (error) {
-            texto.innerHTML = "Error en la conexión o en el servidor";
+            texto.innerHTML = "Error en la conexión o en el servidor ";   
             texto.className = "alert alert-danger";
         }
     });
 </script>
 </body>
-</html>
+</html

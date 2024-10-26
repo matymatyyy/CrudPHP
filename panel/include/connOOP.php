@@ -8,7 +8,7 @@ class DataBase{
     }
 
     function conectar(){
-        $this->conn = new mysqli("localhost", "root", "", $this->database);
+        $this->conn = new mysqli("localhost", "root", "root", $this->database);
         if ($this->conn->connect_error) {
             die("Conexión fallida: " . $this->conn->connect_error);
         }

@@ -42,11 +42,7 @@ if (!empty($filtroCategoria) || !empty($filtroRedactor) || !empty($filtroTitulo)
 <body>
 <?php include_once("../shared/nav.html") ?>
     <br>
-        <div class="row">
-            <?php include_once("../shared/botones.html");
-            include_once("entradasTable.php");
-            ?>
-    </div>    
+        <?php include_once("entradasTable.php"); ?>
     <script src="../../scrips/users/limitText.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
