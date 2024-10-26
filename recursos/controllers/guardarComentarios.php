@@ -1,17 +1,19 @@
 <?php
-include_once("../../panel/include/connOOP.php");
-include_once("../../panel/controllers/entradas/entradasOOP.php");
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
-    $noticia_id = $_POST['noticia_id'];
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["usuario"])) {
+    include_once("../../panel/include/connOOP.php");
+    include_once("../../panel/controllers/entradas/entradasOOP.php");
+    $data = json_decode(file_get_contents("php://input"), true);
+    $noticia_id = isset($data["id_noticia"]) ? $data["id_noticia"]:"";
     $id_usuario = $_SESSION["usuario"];
-    $comentario = $_POST['comentario'];
+    $comentario = isset($data["comentario"]) ? $data["comentario"]:"";
 
     $database = new DataBase("users");
     $entradas = new Entradas($database, "noticias");
-
-    $entradas->guardarComentario($noticia_id, $id_usuario, $comentario);
-
-    header("Location: /patronDiseño/detalle.php?id=".$noticia_id);
+    try{
+        $entradas->guardarComentario($noticia_id, $id_usuario, $comentario);
+        echo json_encode("1");
+    }catch(error){
+        echo json_encode("0");
+    }    
 }
