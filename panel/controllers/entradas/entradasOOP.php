@@ -127,12 +127,7 @@ class Entradas{
     
     public function obtenerComentarios($id_noticia) {
         $stmt = $this->conn->prepare("
-            SELECT c.comentario, c.fecha, u.name 
-            FROM comentarios c
-            JOIN user u ON c.id_usuario = u.id
-            WHERE c.id_noticia = ?
-            ORDER BY c.fecha DESC
-        ");
+            SELECT c.comentario, c.fecha, u.name, c.id_usuario FROM comentarios c JOIN user u ON c.id_usuario = u.id WHERE c.id_noticia = ? ORDER BY c.fecha DESC ");
         $stmt->bind_param("i", $id_noticia);
         $stmt->execute();
         $result = $stmt->get_result();

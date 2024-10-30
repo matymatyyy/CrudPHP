@@ -3,6 +3,22 @@ include_once("../../include/verificarSesion.php");
 include_once("../../controllers/comentarios/comentariosOOP.php");
 include_once("../../include/connOOP.php");
 
+$id = isset($_POST["id"]) ? $_POST["id"] : 0;
+$userComentario = isset($_POST["user"]) ? $_POST["user"] : "";
+$elimino = isset($_GET["elimino"])?$_GET["elimino"]:0;
+$actualizo=isset($_GET["actualizo"])?$_GET["actualizo"]:0;
+$registro=isset($_GET["registro"])?$_GET["registro"]: 0;
+
+$database = new DataBase("users");
+$comentarios = new Comentarios($database, "comentarios");
+
+if (!empty($userComentario) && $elimino == 1) {
+    $comentarios->delete($id);
+}
+
+
+$comentario= $comentarios->read();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

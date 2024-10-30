@@ -85,6 +85,13 @@ if (!empty($id)) {
                         echo "<div class='card my-2'>";
                         echo "<div class='card-body'>";
                         echo "<h6 class='card-title'>" . htmlspecialchars($comentario['name']) . "</h6>";
+                        if (isset($_SESSION["usuario"])) {
+                            if ($_SESSION["usuario"]==$comentario["id_usuario"]) {
+                                echo "<div class='d-flex justify-content-end'>
+                                <input type='hidden' name='usuarioId' value=". $comentario['id_usuario'] .">
+                                <button type='button' class='btn btn-primary' id='eliminarComentario'>X</button></div>";
+                            }
+                        }
                         echo "<p class='card-muted'>" . htmlspecialchars(strftime("%e de %B de %Y", $fecha->getTimestamp())) . "</p>";
                         echo "<p class='text-muted'>" . htmlspecialchars($comentario['comentario']) . "</p>";
                         echo "</div>";
@@ -97,69 +104,8 @@ if (!empty($id)) {
         </div>
     <?php } ?>
 </div>
-<script>
-    const boton =document.getElementById("enviarComentario");
-    boton.addEventListener("click", async function(e){
-        boton.disabled=true;
-        boton.innerHTML="Enviando..."
-        const id_noti=document.getElementById("noticia_id").value;
-        const comentario=document.getElementById("comentario").value;
-        try {
-            const respuesta =await fetch("http://localhost/patronDiseño/recursos/controllers/guardarComentarios.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id_noticia: id_noti,
-                comentario: comentario
-            })
-        });
-        const resp=await respuesta.json();
-        if (resp=="1") {
-            boton.disabled=false;
-            boton.innerHTML="Enviar comentario";
-            contenedorComentarios=document.getElementById("contedorComentarios");
-            try {
-                const response=await fetch("http://localhost/patronDiseño/recursos/controllers/obtenerComentarios.php",{
-                    method: "POST",
-                    headers:{
-                        "Content-Type": "application/json"
-                    },
-                    body:JSON.stringify({
-                        id_noticia:id_noti
-                    })
-                });
-                const respon =await response.json();
-                if (respon.length > 0) {
-                    contenedorComentarios.innerHTML="";
-                    respon.forEach(comentario => {
-                        const detalle= `
-                        <div class='card my-2'>
-                        <div class='card-body'>
-                        <h6 class='card-title'>${comentario["name"]}</h6>
-                        <p class='card-muted'>${comentario["fecha"]}</p>
-                        <p class='text-muted'>${comentario["comentario"]}</p>
-                        </div>
-                        </div> `;
-                        contenedorComentarios.innerHTML+=detalle;
-                    });
-                }
-            } catch (error) {
-                conosle.log("error al obtener comentarios")
-            }
-
-
-        }else{
-            console.log("error de respuesta");
-        }
-        } catch (error) {
-            console.log("error");
-        }
-        
-    });
-
-</script>
+<?php if (isset($_SESSION["usuario"])) {
+    echo "<script src='recursos/scrips/AjaxComentarios.js'></script>"; } ?>
 <?php include_once("recursos/view/shared/footer.html") ?>
 </body>
 </html>

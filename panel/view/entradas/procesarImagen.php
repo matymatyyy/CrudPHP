@@ -1,5 +1,5 @@
 <?php
-function ProcesarImag($text = "") {
+function ProcesarImag($text = "") { #esto es un controller deberia ir en otra carpeta
     if (isset($_FILES["file"])) {
         $file = $_FILES["file"];
         if ($file["size"] === 0) {  # si no hay imagen devolvemos el mismo nombre de la que ya tenia antes o no devolvemos nada
