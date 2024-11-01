@@ -31,14 +31,18 @@ if (!empty($filtro)) {
 <body>
 <?php include_once("recursos/view/shared/nav.php") ?>
     <hr>
-    <div class="subTitulos text-center my-3">
-        <?php foreach ($categoris as $cat) { ?>
-           <a href="<?php echo "index.php?filtro=".$cat->id ?>"><?php echo $cat->nombre ?></a>
-        <?php } ?>
+    <div class="subTitulos row my-3" >
+        <span id="contenerExtras" class="d-flex justify-content-center text-center flex-wrap gap-3">
+        </span>
     </div>
     <hr>
     <div class="desarrollo">
         <div class="container">
+            <?php if (!empty($filtro)) {
+                if($cat = $categorias->read($filtro)){#si no existe no muestra nada
+                echo "<h1>$cat->nombre</h1><hr>";
+                }
+            } ?>
             <div id="contenedor-noticias" class="row">
             <?php foreach ($noticas as $entra) { ?>
                 <div class="col-md-4">
@@ -48,8 +52,8 @@ if (!empty($filtro)) {
                             <h5 class="card-title"><?php echo $entra['titulo'] ?></h5>
                             <h6 class="card-text"><?php echo $entra['nombre'] ?></h6>
                             <p class="card-text"><?php
-                            setlocale(LC_TIME, 'Spanish_Spain');
-                            $dateTime = new DateTime($entra['fecha']);
+                            setlocale(LC_TIME, 'Spanish_Spain');#seteo de localidad 
+                            $dateTime = new DateTime($entra['fecha']);#se muestra en el formato puesto
                             echo $fechaFormateada = strftime('%d de %B de %Y', $dateTime->getTimestamp()); ?></p>
                             <p class="card-text"><?php echo $entra['descripcion'] ?></p>
                             <a href="<?php echo "detalle.php?id=".$entra['id'] ?>" class="btn btn-primary">Leer mas</a>
@@ -112,6 +116,20 @@ if (!empty($filtro)) {
             });
         }
     });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const contenedorExtas=document.getElementById("contenerExtras");
+    fetch("https://dolarapi.com/v1/dolares")
+  .then(response => response.json())
+  .then(data => agregarDolares(data));
+  function agregarDolares(dolares) {
+    dolares.forEach(dolar => {
+        contenedorExtas.innerHTML+=  `
+                <strong>${dolar["nombre"]}:</strong>$${dolar["venta"]}
+        `;
+    });
+  }
 </script>
 </body>
 </html>

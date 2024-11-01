@@ -110,4 +110,13 @@ class Usuarios{
         $stmt->close();
         return $resultado;
     }
+
+    public function existeID($id){
+        $stmt = $this->conn -> prepare("SELECT * FROM $this->tabla WHERE id=?"); 
+        $stmt->bind_param("i",$id);
+        $stmt -> execute();
+        $result = $stmt->get_result() > 0;
+        $stmt->close();
+        return $result; 
+    }
 }

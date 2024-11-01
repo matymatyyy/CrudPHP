@@ -1,13 +1,17 @@
 <?php  
 include_once("panel/controllers/entradas/entradasOOP.php");
+include_once("panel/controllers/categorias/categoriasOOP.php");
 include_once("panel/include/connOOP.php");
 
 $database = new DataBase("users");
+$categorias= new Categorias($database,"categorias");
 $entradas = new Entradas($database, "noticias");
 session_start();
 
 $id = isset($_GET["id"]) ? $_GET["id"] : ""; 
 $noticia = null;
+
+$categoris= $categorias->read();
 
 if (!empty($id)) {
     $noticia = $entradas->read($id); 
@@ -84,14 +88,14 @@ if (!empty($id)) {
                         $fecha = new DateTime($comentario['fecha']);
                         echo "<div class='card my-2'>";
                         echo "<div class='card-body'>";
+                        echo "<div class='d-flex justify-content-between align-items-center'>";
                         echo "<h6 class='card-title'>" . htmlspecialchars($comentario['name']) . "</h6>";
-                        if (isset($_SESSION["usuario"])) {
-                            if ($_SESSION["usuario"]==$comentario["id_usuario"]) {
-                                echo "<div class='d-flex justify-content-end'>
-                                <input type='hidden' name='usuarioId' value=". $comentario['id_usuario'] .">
-                                <button type='button' class='btn btn-primary' id='eliminarComentario'>X</button></div>";
+                        if (isset($_SESSION["usuario"])) {#falta hacer una verificacion interna para que no borren comentarios que no son suyos
+                            if ($_SESSION["usuario"] == $comentario["id_usuario"]) {
+                                echo "<button class='btn btn-danger btn-sm' onclick='eliminarComentario(" . $comentario['id'] . "," . $id . ")'>X</button>";
                             }
                         }
+                        echo "</div>";
                         echo "<p class='card-muted'>" . htmlspecialchars(strftime("%e de %B de %Y", $fecha->getTimestamp())) . "</p>";
                         echo "<p class='text-muted'>" . htmlspecialchars($comentario['comentario']) . "</p>";
                         echo "</div>";
@@ -107,5 +111,6 @@ if (!empty($id)) {
 <?php if (isset($_SESSION["usuario"])) {
     echo "<script src='recursos/scrips/AjaxComentarios.js'></script>"; } ?>
 <?php include_once("recursos/view/shared/footer.html") ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
