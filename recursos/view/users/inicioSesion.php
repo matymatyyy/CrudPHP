@@ -32,9 +32,9 @@ $error = isset($_GET["error"])?$_GET["error"]:0;
                     <input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesion">
                 </form>
                 <br>
-                <a class="btn  btn-secondary w-100" href="registrar.php" value="Registrar">Registrar</a><br>
+                <a class="btn btn-info w-100" href="registrar.php" value="Registrar">Registrar</a><br>
                 <br>
-                <a class="btn btn-info w-100" href="/patronDiseño/" value="Iniciar Sesión">volver</a>
+                <a class="btn  btn-secondary w-100 " href="/patronDiseño/" value="Iniciar Sesión">volver</a>
             </div>
     </div>
 </div>

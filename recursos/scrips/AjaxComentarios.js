@@ -47,6 +47,7 @@ async function eliminarComentario(id_coment,id_noticia) {
         }
     } catch (error) {
         console.log("error");
+        recargarComentarios(id_noticia);
     }
 }
 

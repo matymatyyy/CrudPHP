@@ -27,6 +27,8 @@ if (!empty($filtro)) {
     <link rel="icon" href="/patronDiseño/recursos/img/ch.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
 <body>
 <?php include_once("recursos/view/shared/nav.php") ?>
@@ -118,18 +120,6 @@ if (!empty($filtro)) {
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const contenedorExtas=document.getElementById("contenerExtras");
-    fetch("https://dolarapi.com/v1/dolares")
-  .then(response => response.json())
-  .then(data => agregarDolares(data));
-  function agregarDolares(dolares) {
-    dolares.forEach(dolar => {
-        contenedorExtas.innerHTML+=  `
-                <strong>${dolar["nombre"]}:</strong>$${dolar["venta"]}
-        `;
-    });
-  }
-</script>
+<script src="/patronDiseño/recursos/scrips/dolaresApi.js"></script>
 </body>
 </html>

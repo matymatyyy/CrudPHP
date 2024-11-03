@@ -57,4 +57,12 @@ class Comentarios{
     public function ComentariosAjax($id_noticia){ #falta terminar ajax
 
     }
+    public function deleteComentario($id,$user){
+        $stmt = $this->conn->prepare("DELETE FROM $this->tabla WHERE id = ? AND id_usuario = ? ");
+        $stmt->bind_param("ii", $id,$user);
+        $stmt->execute();
+        $resultado = $stmt->affected_rows > 0;
+        $stmt->close();
+        return $resultado;
+    }
 }
