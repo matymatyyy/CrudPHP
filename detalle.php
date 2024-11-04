@@ -27,6 +27,7 @@ if (!empty($id)) {
     <link href="/patronDiseño/recursos/styles/index.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
 <?php include_once("recursos/view/shared/nav.php") ?>
@@ -80,9 +81,10 @@ if (!empty($id)) {
             <?php } ?>
             <br>
             <h4>Comentarios anteriores:</h4>
+            <div>
             <div id="contedorComentarios">
                 <?php
-                $comentarios = $entradas->obtenerComentarios($id);
+                $comentarios = $entradas->obtenerComentarios($id,0,3);
                 if ($comentarios) {
                     foreach ($comentarios as $comentario) {
                         $fecha = new DateTime($comentario['fecha']);
@@ -90,7 +92,7 @@ if (!empty($id)) {
                         echo "<div class='card-body'>";
                         echo "<div class='d-flex justify-content-between align-items-center'>";
                         echo "<h6 class='card-title'>" . htmlspecialchars($comentario['name']) . "</h6>";
-                        if (isset($_SESSION["usuario"])) {#falta hacer una verificacion interna para que no borren comentarios que no son suyos
+                        if (isset($_SESSION["usuario"])) {
                             if ($_SESSION["usuario"] == $comentario["id_usuario"]) {
                                 echo "<button class='btn btn-danger btn-sm' onclick='eliminarComentario(" . $comentario['id'] . "," . $id . ")'>X</button>";
                             }
@@ -105,6 +107,10 @@ if (!empty($id)) {
                     echo "<p>No hay comentarios aún.</p>";
                 } ?>
             </div>
+        </div>
+        <?php if (count($comentarios)==3) {
+                        echo("<button id='cargarMasComentarios' onClick='CargarMasComentarios($id)' class='btn btn-secondary mt-3'>Mostrar mas comentarios</button>");
+                    } ?>
         </div>
     <?php } ?>
 </div>

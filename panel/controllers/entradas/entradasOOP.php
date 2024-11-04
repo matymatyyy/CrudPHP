@@ -125,10 +125,10 @@ class Entradas{
         $stmt->execute();
     }
     
-    public function obtenerComentarios($id_noticia) {
+    public function obtenerComentarios($id_noticia,$offset,$limit) {
         $stmt = $this->conn->prepare("
-            SELECT c.id,c.comentario, c.fecha, u.name, c.id_usuario FROM comentarios c JOIN user u ON c.id_usuario = u.id WHERE c.id_noticia = ? ORDER BY c.fecha DESC ");
-        $stmt->bind_param("i", $id_noticia);
+            SELECT c.id,c.comentario, c.fecha, u.name, c.id_usuario FROM comentarios c JOIN user u ON c.id_usuario = u.id WHERE c.id_noticia = ? ORDER BY c.fecha DESC  LIMIT ? OFFSET ? ");
+        $stmt->bind_param("iii", $id_noticia,$limit,$offset);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);

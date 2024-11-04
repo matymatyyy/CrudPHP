@@ -17,7 +17,7 @@ const inputNoticia= document.getElementById("inputNoticia");
             let detalle = `
                 <div class="row mb-3">
                     <div class="col-12">
-                    <h5 class="text-primary mb-2" id="noticiaTitulo">${noticia["titulo"]}</h5>
+                    <h5 class="text-primary mb-2" id="noticiaTitulo"><a href="detalle.php?id=${noticia["id"]}" class="text-decoration-none">${noticia["titulo"]}</a></h5>
                     </div>
                     <div class="col-12">
                     <p class="text-muted" id="noticiaFecha">Fecha: ${fechaFormateada}</p>

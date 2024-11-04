@@ -62,7 +62,6 @@
       <div class="modal-body">
          <div class="d-flex" role="search">
             <input class="form-control m-2" type="search" placeholder="Titulo de la noticia" aria-label="Search" id="inputNoticia">
-            <button type="button" class="btn btn-secondary m-2" data-bs-dismiss="modal">Cerrar</button>
             </div>
         <hr>
         <div id="ContendorModal">

@@ -1,3 +1,5 @@
+let offset = 0;
+let limit= 3;
 const boton = document.getElementById("enviarComentario");
     boton.addEventListener("click", async function(){
         boton.disabled=true;
@@ -60,10 +62,20 @@ async function recargarComentarios(id_noti) {
                         "Content-Type": "application/json"
                     },
                     body:JSON.stringify({
-                        id_noticia:id_noti
+                        id_noticia:id_noti,
+                        offset: offset,
+                        limit: limit
                     })
                 });
                 const respon =await response.json();
+                const botonCargarMas = document.getElementById("cargarMasComentarios");
+                if (respon.length < limit) {
+                    botonCargarMas.disabled=true;
+                    botonCargarMas.innerHTML="No hay mas comentarios";
+                }else{
+                    botonCargarMas.disabled=false;
+                    botonCargarMas.innerHTML="Mostrar mas comentarios";
+                }
                 if (respon.length > -1) {
                     contenedorComentarios.innerHTML = "";
                 respon.forEach(async comentario => {
@@ -113,4 +125,9 @@ async function comentarioUser(id) {
         console.log("Error en comentarioUser:", error);
         return false;
     }
+}
+
+function CargarMasComentarios(id_noti) {
+    limit+=3;
+    recargarComentarios(id_noti);
 }
