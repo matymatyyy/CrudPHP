@@ -65,7 +65,7 @@ if (!empty($id)) {
         </div>
     <?php } ?>
     <?php if ($noticia) { ?>
-        <div class="my-5">
+        <div class="my-5 addBoton">
             <h3>Comentarios</h3>
             <?php if (isset($_SESSION["usuario"])) { ?>
                 <div action="recursos/controllers/guardarComentarios.php" method="POST">
@@ -114,8 +114,10 @@ if (!empty($id)) {
         </div>
     <?php } ?>
 </div>
+<script src='recursos/scrips/AjaxComentarios.js'></script>
 <?php if (isset($_SESSION["usuario"])) {
-    echo "<script src='recursos/scrips/AjaxComentarios.js'></script>"; } ?>
+    echo "<script src='recursos/scrips/enviarComentario.js'></script>";
+} ?>
 <?php include_once("recursos/view/shared/footer.html") ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

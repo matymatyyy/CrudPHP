@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["usuario"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once("../../panel/include/connOOP.php");
     include_once("../../panel/controllers/entradas/entradasOOP.php");
     $database = new DataBase("users");

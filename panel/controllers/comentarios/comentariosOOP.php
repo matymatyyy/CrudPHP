@@ -6,7 +6,6 @@ class Comentarios{
         $this->conn= $db->conectar();
         $this->tabla= $tabla;
     }
-    #terminar este crud de comentarios
     public function read($id=""){
         if (!empty($id)) {
             $stmt = $this->conn->prepare("SELECT * FROM $this->tabla WHERE id=?");
@@ -45,17 +44,13 @@ class Comentarios{
         return $resultado;
     }
 
-    public function create($id_noticia,$id_usuario,$comentario){#esta rara esta funcion para crear comentarios
+    public function create($id_noticia,$id_usuario,$comentario){
         $stmt = $this->conn -> prepare("INSERT INTO `$this->tabla` (`id_noticia`, `id_usuario`, `comentario`) VALUES ( ? , ? , ? );");
         $stmt->bind_param("iis",$id_noticia,$id_usuario, $comentario);
         $stmt -> execute();
         $resultado = $stmt->affected_rows > 0;
         $stmt->close();
         return $resultado;
-    }
-
-    public function ComentariosAjax($id_noticia){ #falta terminar ajax
-
     }
     public function deleteComentario($id,$user){
         $stmt = $this->conn->prepare("DELETE FROM $this->tabla WHERE id = ? AND id_usuario = ? ");

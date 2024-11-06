@@ -1,5 +1,10 @@
 <?php
+session_start();
 $error=isset($_GET["error"])?$_GET["error"]:"";
+if (isset($_SESSION["id"])) {
+    header("Location: view/crudOOP.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

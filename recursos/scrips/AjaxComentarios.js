@@ -1,34 +1,5 @@
 let offset = 0;
 let limit= 3;
-const boton = document.getElementById("enviarComentario");
-    boton.addEventListener("click", async function(){
-        boton.disabled=true;
-        const id_noti=document.getElementById("noticia_id").value;
-        const comentario=document.getElementById("comentario").value;
-        try {
-            const respuesta =await fetch("http://localhost/patronDiseño/recursos/controllers/guardarComentarios.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id_noticia: id_noti,
-                comentario: comentario
-            })
-        });
-        const resp=await respuesta.json();
-        if (resp=="1") {
-            boton.disabled=false;
-            recargarComentarios(id_noti);
-            document.getElementById("comentario").value="";
-        }else{
-            console.log("error de respuesta");
-        }
-        } catch (error) {
-            console.log("error");
-        }
-        
-    });
 
 async function eliminarComentario(id_coment,id_noticia) {
     try {
@@ -69,16 +40,26 @@ async function recargarComentarios(id_noti) {
                 });
                 const respon =await response.json();
                 const botonCargarMas = document.getElementById("cargarMasComentarios");
-                if (respon.length < limit) {
-                    botonCargarMas.disabled=true;
-                    botonCargarMas.innerHTML="No hay mas comentarios";
-                }else{
-                    botonCargarMas.disabled=false;
-                    botonCargarMas.innerHTML="Mostrar mas comentarios";
+                if (botonCargarMas) {
+                    if (respon.length < limit) {
+                        botonCargarMas.disabled=true;
+                        botonCargarMas.innerHTML="No hay mas comentarios";
+                    }else{
+                        botonCargarMas.disabled=false;
+                        botonCargarMas.innerHTML="Mostrar mas comentarios";
+                    }
+                }else if(!botonCargarMas && respon.length == 3){
+                    const agregarBoton = document.querySelector(".addBoton");
+                    const params = new URLSearchParams(window.location.search);
+                    let filtro = params.has("id") ? params.get("id") : "";
+                    agregarBoton.innerHTML+=`<button id='cargarMasComentarios' onClick='CargarMasComentarios(${filtro})' class='btn btn-secondary mt-3'>Mostrar mas comentarios</button>`;
                 }
                 if (respon.length > -1) {
                     contenedorComentarios.innerHTML = "";
                 respon.forEach(async comentario => {
+                    const fecha = new Date(comentario.fecha);
+                    const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const fechaFormateada = new Intl.DateTimeFormat('es-ES', opciones).format(fecha);
                     const detalle = `
                     <div class='card my-2'>
                         <div class='card-body'>
@@ -91,7 +72,7 @@ async function recargarComentarios(id_noti) {
                 }                
                 const detalle3 = `
                             </div>
-                            <p class='card-muted'>${comentario["fecha"]}</p>
+                            <p class='card-muted'>${fechaFormateada}</p>
                             <p class='text-muted'>${comentario["comentario"]}</p>
                         </div>
                     </div>`;
@@ -100,7 +81,7 @@ async function recargarComentarios(id_noti) {
             });
         }
     } catch (error) {
-        console.log("error al obtener comentarios:");
+        console.log("error al obtener comentarios:"+error);
     }
 }
 

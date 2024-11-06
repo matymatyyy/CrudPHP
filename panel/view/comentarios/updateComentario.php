@@ -4,6 +4,7 @@ include_once("../../controllers/comentarios/comentariosOOP.php");
 include_once("../../include/connOOP.php");
 
 $id = isset($_POST["id"]) ? $_POST["id"] : 0;
+$id_noticia=isset($_POST["id_noticia"])?$_POST["id_noticia"]:"";
 $actualizo=isset($_GET["actualizar"])?$_GET["actualizar"]:0;
 $registro=isset($_GET["registro"])?$_GET["registro"]:0;
 $comentario = isset($_POST["Comentario"])?$_POST["Comentario"]:"";
@@ -11,9 +12,9 @@ $comentario = isset($_POST["Comentario"])?$_POST["Comentario"]:"";
 $database = new DataBase("users");
 $comentarios= new Comentarios($database,"comentarios");
 
-if ($registro==1) { #falta modificar y a la hora de crear los comentarios darle a elegir que noticia va
-    if ($comentarios->create(0,$_SESSION["usuario"],$comentario)) {
-        header("Location:/patronDiseño/panel/view/comentarios/comentarios.php?registro=1");
+if ($registro==1) { 
+    if ($comentarios->create($id_noticia,$_SESSION["id"],$comentario)) {
+        header("Location:/patronDiseño/panel/view/entradas/entradas.php");
         exit();
     }
 }
@@ -54,12 +55,14 @@ if (!empty($id)) {
                     
                     <?php if (!empty($id)) { ?>
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
+                    <?php }else{ ?>
+                        <input type="hidden" name="id_noticia" value="<?php echo $id_noticia; ?>">
                     <?php } ?>
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
                 <br>
-                <form action="/patronDiseño/panel/view/comentarios/comentarios.php">
+                <form action=<?php echo (!empty($id))? "/patronDiseño/panel/view/comentarios/comentarios.php": "/patronDiseño/panel/view/entradas/entradas.php"; ?>>
                     <button type="submit" class="btn btn-secondary">Volver</button>
                 </form>
             </div>

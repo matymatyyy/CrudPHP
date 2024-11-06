@@ -9,7 +9,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 $traer = isset($data["traer"]) ? $data["traer"] : 0;
 $filtro = isset($data["filtro"]) ? $data["filtro"] : 0;
 
-if ($filtro) {
+if (!empty($filtro)) {
     $noticas = $entradas->filtroAjax($filtro,$traer,6);
 }else{
     $noticias = $entradas->readAjax($traer, 6);

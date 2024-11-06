@@ -5,9 +5,6 @@
         echo  "<p>Se Actualizo el comentario</p>";
     } ?>
             <br>
-            <form class="text-end" action="updateComentario.php">
-                <input type="submit" value="+" class="btn btn-secondary">
-            </form>
             <p class="text-center">Lista de Comentarios</p>
             <table class="table table-striped table-dark">
                 <thead>

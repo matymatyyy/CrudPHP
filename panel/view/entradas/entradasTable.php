@@ -66,6 +66,7 @@
                 <th class="text-center">Redactor</th>
                 <th class="text-center">Categoria</th>
                 <th class="text-center">Modificar</th>
+                <th>Comentar</th>
                 <th class="text-center">Eliminar</th>
             </tr>
         </thead>
@@ -84,7 +85,12 @@
                         <input type="hidden" name="id" value="<?php echo $entra->id; ?>">
                     </form>
                 </td>
-                
+                <td>            
+                    <form class="text-end" action="../comentarios/updateComentario.php" method="POST">
+                        <input type="hidden" name="id_noticia" value="<?php echo $entra->id; ?>">
+                        <input type="submit" value="Comentar" class="btn btn-secondary">
+                    </form>
+                </td>
                 <td class="text-center">
                     <form action="entradas.php?elimino=1&titulo=<?php echo $entra->titulo; ?>" method="POST" align="center">
                         <input type="submit" class="btn btn-secondary" value="X">

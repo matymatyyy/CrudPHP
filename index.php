@@ -40,7 +40,7 @@ if (!empty($filtro)) {
     <div class="desarrollo">
         <div class="container">
             <?php if (!empty($filtro)) {
-                if($cat = $categorias->read($filtro)){#si no existe no muestra nada
+                if($cat = $categorias->read($filtro)){
                 echo "<h1>$cat->nombre</h1><hr>";
                 }
             } ?>
@@ -71,53 +71,7 @@ if (!empty($filtro)) {
         echo "<button id='ver-mas' class='btn btn-secondary w-100'>Ver mas</button>";
     } ?>
 <?php include_once("recursos/view/shared/footer.html") ?>
-    <script>
-    let contador = 6;
-    document.getElementById("ver-mas").addEventListener("click", async function() {
-        const response = await fetch("recursos/controllers/verMas.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                traer : contador,
-                <?php if (!empty($filtro)) {
-                    echo "filtro: $filtro";
-                } ?> 
-            })
-        });
-
-        const noticias = await response.json();
-        const contenedor = document.getElementById("contenedor-noticias");
-        contador += 6;
-        if (noticias.length === 0) {
-            let boton = document.getElementById("ver-mas");
-            boton.disabled = true;
-            boton.innerText = "No hay más noticias";
-        } else {
-            noticias.forEach(noticia => {
-                const fecha = new Date(noticia.fecha);
-                const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
-                const fechaFormateada = new Intl.DateTimeFormat('es-ES', opciones).format(fecha);
-                const noticiaHTML = `
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="/patronDiseño/panel/uploads/noticias/${noticia.imagen}" class="card-img-top" alt="Noticia">
-                            <div class="card-body">
-                                <h5 class="card-title">${noticia.titulo}</h5>
-                                <h6 class="card-text">${noticia.nombre}</h6>
-                                <p class="card-text">${fechaFormateada}</p>
-                                <p class="card-text">${noticia.descripcion}</p>
-                                <a href="detalle.php?id=${noticia.id}" class="btn btn-primary">Leer mas</a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                contenedor.innerHTML += noticiaHTML;
-            });
-        }
-    });
-</script>
+<script src="/patronDiseño/recursos/scrips/AjaxVerMas.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/patronDiseño/recursos/scrips/dolaresApi.js"></script>
 </body>
